@@ -1,0 +1,7 @@
+disabled_rules:
+ - todo
+
+excluded:
+ - Pods
+ - Frameworks
+ - Products
