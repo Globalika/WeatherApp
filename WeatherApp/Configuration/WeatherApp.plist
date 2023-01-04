@@ -1,4 +1,7 @@
 {
+	"WEATHER_API_URL" = "http://api.openweathermap.org/data/2.5/";
 	"WEATHER_API_KEY" = "653879677e4c405cc7e87a3c405cfc3c";
-	"CITIES_API_KEY" = "7KG8o2wNfkPOl8IU55fFViDwUKgg";
+	"CITIES_API_URL" = "https://test.api.amadeus.com/v1/";
+	"CITIES_API_KEY" = "ui9wH4naCYPH0LpXIS3xVRBBchGdxhO1";
+	"CITIES_API_SECRET" = CLSM9nvu8XgftWoh;
 }

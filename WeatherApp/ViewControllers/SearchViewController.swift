@@ -8,6 +8,7 @@
 import UIKit
 
 class SearchViewController: UIViewController {
+    var viewmodel = SearchViewModel()
     override func viewDidLoad() {
         view.backgroundColor = .cyan
         setupUI()
@@ -22,7 +23,9 @@ class SearchViewController: UIViewController {
     }()
     var coordinator: SearchCoordinator?
     @objc func rightTapped(_ sender: UIButton) {
-        coordinator?.dismiss()
+        viewmodel.getCities(for: "lvi")
+        
+        //coordinator?.dismiss()
     }
     func setupUI() {
         view.addSubview(button2)

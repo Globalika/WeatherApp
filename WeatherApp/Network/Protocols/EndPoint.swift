@@ -15,6 +15,7 @@ protocol EndPoint: URLRequestConvertible {
     var method: HTTPMethod { get }
     var encoding: ParameterEncoding { get }
     var urlRequest: URLRequest { get }
+    var headers: HTTPHeaders { get }
 }
 
 extension EndPoint {
@@ -29,12 +30,8 @@ extension EndPoint {
         case .get:
             return URLEncoding.default
         default:
-            return JSONEncoding.default
+            return URLEncoding.default
         }
-    }
-    var headers: HTTPHeaders {
-        let header = HTTPHeaders()
-        return header
     }
     var urlRequest: URLRequest {
         var request = URLRequest(url: requestURL)

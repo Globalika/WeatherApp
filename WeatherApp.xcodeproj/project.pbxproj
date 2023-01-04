@@ -41,6 +41,8 @@
 		89AADDD429658E6D006664FC /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AADDD329658E6D006664FC /* UIColor+Extension.swift */; };
 		89AADDD62965900A006664FC /* Temperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AADDD52965900A006664FC /* Temperature.swift */; };
 		89AADDD829659D87006664FC /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AADDD729659D87006664FC /* City.swift */; };
+		89AADDD92965AD72006664FC /* WeatherApp.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89AADDAB2964ECBC006664FC /* WeatherApp.plist */; };
+		89AADDDB2965C3C4006664FC /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AADDDA2965C3C4006664FC /* Settings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +84,7 @@
 		89AADDD329658E6D006664FC /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		89AADDD52965900A006664FC /* Temperature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temperature.swift; sourceTree = "<group>"; };
 		89AADDD729659D87006664FC /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		89AADDDA2965C3C4006664FC /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		8A3EF449FB8E321E141E6632 /* Pods-WeatherApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.debug.xcconfig"; path = "Target Support Files/Pods-WeatherApp/Pods-WeatherApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,6 +233,7 @@
 			children = (
 				89AADDA92964EC66006664FC /* ConfigurationManager.swift */,
 				89AADDAB2964ECBC006664FC /* WeatherApp.plist */,
+				89AADDDA2965C3C4006664FC /* Settings.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -331,6 +335,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89AADDD92965AD72006664FC /* WeatherApp.plist in Resources */,
 				894CFF87296458DD0023FAD3 /* LaunchScreen.storyboard in Resources */,
 				894CFF84296458DD0023FAD3 /* Assets.xcassets in Resources */,
 			);
@@ -429,6 +434,7 @@
 				89AADDCE296588D0006664FC /* ServiceType.swift in Sources */,
 				89AADDC129658778006664FC /* CityServices.swift in Sources */,
 				89AADDD62965900A006664FC /* Temperature.swift in Sources */,
+				89AADDDB2965C3C4006664FC /* Settings.swift in Sources */,
 				89AADDAF29657DD2006664FC /* Wind.swift in Sources */,
 				89AADD992964A8BF006664FC /* HomeCoordinator.swift in Sources */,
 				894CFF7F296458DC0023FAD3 /* HomeViewController.swift in Sources */,

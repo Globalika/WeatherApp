@@ -9,11 +9,14 @@ import Alamofire
 
 class CityServices: ServiceType {
     private var httpClient: HttpClient
-    
+
     init(httpClient: HttpClient) {
         self.httpClient = httpClient
     }
-    func keywordFroCities(_ keyword: String, completion: @escaping (Result<City, AFError>) -> Void) {
-        httpClient.execute(CityEndPoints.keywordForCities(keyword), model: City.self, completion: completion)
+    func keywordForCities(_ keyword: String, completion: @escaping (Result<Data, AFError>) -> Void) {
+        httpClient.execute(CityEndPoints.keywordForCities(keyword), model: [City].self, completion: completion)
+    }
+    func autorize(completion: @escaping (Result<Data, AFError>) -> Void) {
+        httpClient.execute(CityEndPoints.autorization, model: Data.self, completion: completion)
     }
 }

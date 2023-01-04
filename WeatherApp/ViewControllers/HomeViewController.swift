@@ -9,7 +9,9 @@ import UIKit
 
 class HomeViewController: UIViewController {
     // MARK: - Lifecycle
+    var viewmodel = HomeViewModel()
     override func viewDidLoad() {
+        viewmodel.autorizeCitiesApi()
         super.viewDidLoad()
         self.view.backgroundColor = .blue
         setupUI()
@@ -22,7 +24,7 @@ class HomeViewController: UIViewController {
         button.addTarget(self, action: #selector(leftTapped), for: .touchUpInside)
         return button
     }()
-    var button2: UIButton = {
+     var button2: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("right", for: .normal)
