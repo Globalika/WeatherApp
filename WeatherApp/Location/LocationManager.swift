@@ -10,7 +10,6 @@ import CoreLocation
 class LocationManager: LocationProvider {
     private let manager: CLLocationManager
     private let geocoder: CLGeocoder
-    
     init() {
         manager = CLLocationManager()
         geocoder = CLGeocoder()
@@ -18,7 +17,6 @@ class LocationManager: LocationProvider {
     var currentUserLocation: CLLocation? {
         manager.location
     }
-    
     func requestAuthorization() {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
@@ -34,7 +32,6 @@ class LocationManager: LocationProvider {
             break
         }
     }
-    
     func startUpdating() {
         manager.startUpdatingLocation()
     }

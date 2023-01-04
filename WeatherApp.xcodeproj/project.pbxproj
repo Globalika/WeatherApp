@@ -45,6 +45,8 @@
 		89AADDDB2965C3C4006664FC /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AADDDA2965C3C4006664FC /* Settings.swift */; };
 		89AADDDE2965F3FC006664FC /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AADDDD2965F3FC006664FC /* LocationProvider.swift */; };
 		89AADDE02965F47B006664FC /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AADDDF2965F47B006664FC /* LocationManager.swift */; };
+		89AADDE229661B67006664FC /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AADDE129661B67006664FC /* Date+Extension.swift */; };
+		89AADDE4296621BE006664FC /* Sequense+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AADDE3296621BE006664FC /* Sequense+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +91,8 @@
 		89AADDDA2965C3C4006664FC /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		89AADDDD2965F3FC006664FC /* LocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationProvider.swift; sourceTree = "<group>"; };
 		89AADDDF2965F47B006664FC /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		89AADDE129661B67006664FC /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		89AADDE3296621BE006664FC /* Sequense+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequense+Extension.swift"; sourceTree = "<group>"; };
 		8A3EF449FB8E321E141E6632 /* Pods-WeatherApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.debug.xcconfig"; path = "Target Support Files/Pods-WeatherApp/Pods-WeatherApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -210,6 +214,8 @@
 			children = (
 				89AADDA62964E9F8006664FC /* ViewController+Extension.swift */,
 				89AADDD329658E6D006664FC /* UIColor+Extension.swift */,
+				89AADDE129661B67006664FC /* Date+Extension.swift */,
+				89AADDE3296621BE006664FC /* Sequense+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -438,6 +444,7 @@
 				89AADDCA29658838006664FC /* EndPoint.swift in Sources */,
 				89AADDB929658084006664FC /* MapViewModel.swift in Sources */,
 				89AADDAA2964EC66006664FC /* ConfigurationManager.swift in Sources */,
+				89AADDE4296621BE006664FC /* Sequense+Extension.swift in Sources */,
 				89AADDB52965805A006664FC /* DayForecastCell.swift in Sources */,
 				89AADDCC296588BA006664FC /* NetworkingType.swift in Sources */,
 				89AADDE02965F47B006664FC /* LocationManager.swift in Sources */,
@@ -447,6 +454,7 @@
 				89AADDBB2965808F006664FC /* SearchViewModel.swift in Sources */,
 				89AADDD829659D87006664FC /* City.swift in Sources */,
 				89AADDCE296588D0006664FC /* ServiceType.swift in Sources */,
+				89AADDE229661B67006664FC /* Date+Extension.swift in Sources */,
 				89AADDC129658778006664FC /* CityServices.swift in Sources */,
 				89AADDD62965900A006664FC /* Temperature.swift in Sources */,
 				89AADDDB2965C3C4006664FC /* Settings.swift in Sources */,

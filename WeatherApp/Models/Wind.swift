@@ -13,7 +13,7 @@ struct Wind: Codable {
 }
 
 extension Wind {
-    init?(from dictionary: [String : Any]) {
+    init?(from dictionary: [String: Any]) {
         if let speed = dictionary["speed"] as? Double,
            let deg = dictionary["deg"] as? Int {
             self.speed = speed
