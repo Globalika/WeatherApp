@@ -8,6 +8,16 @@
 import Foundation
 
 struct Wind: Codable {
-    var speed: Double
-    var deg: Int
+    var speed: Double = 0
+    var deg: Int = 0
+}
+
+extension Wind {
+    init?(from dictionary: [String : Any]) {
+        if let speed = dictionary["speed"] as? Double,
+           let deg = dictionary["deg"] as? Int {
+            self.speed = speed
+            self.deg = deg
+        } else { return nil }
+    }
 }

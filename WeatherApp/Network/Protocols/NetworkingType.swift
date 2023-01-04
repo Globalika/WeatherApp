@@ -9,16 +9,14 @@ import Alamofire
 
 protocol NetworkingType {
     @discardableResult
-    func execute<T: Decodable>(_ endPoint: EndPoint,
-                               model: T.Type,
-                               completion: @escaping (Result<Data, AFError>) -> Void) -> DataRequest
+    func execute(_ endPoint: EndPoint,
+                  completion: @escaping (Result<Data, AFError>) -> Void) -> DataRequest
 }
 
 extension NetworkingType {
     @discardableResult
-    func execute<T: Decodable>(_ endPoint: EndPoint,
-                               model: T.Type,
-                               completion: @escaping (Result<Data, AFError>) -> Void) -> DataRequest {
+    func execute(_ endPoint: EndPoint,
+                 completion: @escaping (Result<Data, AFError>) -> Void) -> DataRequest {
         return AF.request(endPoint).responseData(completionHandler: { responce in
             completion(responce.result)
         })

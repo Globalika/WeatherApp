@@ -14,9 +14,9 @@ class CityServices: ServiceType {
         self.httpClient = httpClient
     }
     func keywordForCities(_ keyword: String, completion: @escaping (Result<Data, AFError>) -> Void) {
-        httpClient.execute(CityEndPoints.keywordForCities(keyword), model: [City].self, completion: completion)
+        httpClient.execute(CityEndPoints.keywordForCities(keyword), completion: completion)
     }
     func autorize(completion: @escaping (Result<Data, AFError>) -> Void) {
-        httpClient.execute(CityEndPoints.autorization, model: Data.self, completion: completion)
+        httpClient.execute(CityEndPoints.autorization, completion: completion)
     }
 }

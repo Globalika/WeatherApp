@@ -6,8 +6,13 @@
 //
 
 import Alamofire
+import CoreLocation
 
 class HomeViewModel {
+    var currentCityWeather: Weather = Weather()
+    var listOfDayForecast: [Weather] = []
+    var listOfHourForecast: [Weather] = []
+    
     var citiesService = CityServices(httpClient: HttpClient())
     var weatherService = WeatherServices(httpClient: HttpClient())
 
@@ -23,15 +28,15 @@ class HomeViewModel {
             }
         }
     }
-    func forecastForToday() -> Weather? {
-        //service location
-        var weather: Weather
-        weatherService.weatherForCity("Lviv") { result in
+    func forecastForToday(location: CLLocation) -> Weather? {
+        weatherService.forecastForLatLon(location.coordinate.latitude,
+                                         location.coordinate.longitude) { [weak self] result in
             switch result {
             case .success(let data):
-                if let jsonDict = try? (JSONSerialization.jsonObject(with: data) as? [String: Any]) {
-                    let bb = 5
-                    //weather = Weather(minTemp: <#T##Temperature#>, maxTemp: <#T##Temperature#>, humidity: <#T##Double#>, wind: <#T##Wind#>)
+                if let jsonDict = try? (JSONSerialization.jsonObject(with: data) as? [String: Any]),
+                   let firstElement = (jsonDict["list"] as? [Any])?.first as? [String: Any],
+                   let weather = Weather(from: firstElement) {
+                    self?.currentCityWeather = weather
                 }
             case .failure(let error):
                 print(error)

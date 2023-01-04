@@ -8,5 +8,5 @@
 import Foundation
 
 class Settings {
-    static var citiesApiSecret: String = "lCy1cWn94WCF4DbJAGtOvZeIJcyd"
+    static var citiesApiSecret: String = ""
 }

@@ -33,7 +33,7 @@ enum WeatherEndPoints: EndPoint {
         case let .forecastForLatLon(lat, lon):
             return ["lat": lat,
                     "lon": lon,
-                    "appid": "\(ConfigurationManager.shared.getCitiesApiKey() ?? "")"]
+                    "appid": "\(ConfigurationManager.shared.getWeatherApiKey() ?? "")"]
         }
     }
     var headers: HTTPHeaders {

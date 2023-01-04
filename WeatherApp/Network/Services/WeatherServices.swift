@@ -13,9 +13,9 @@ class WeatherServices: ServiceType {
         self.httpClient = httpClient
     }
     func weatherForCity(_ city: String, completion: @escaping (Result<Data, AFError>) -> Void) {
-        httpClient.execute(WeatherEndPoints.weatherForCity(city), model: Weather.self, completion: completion)
+        httpClient.execute(WeatherEndPoints.weatherForCity(city), completion: completion)
     }
     func forecastForLatLon(_ lat: Double, _ lon: Double, completion: @escaping (Result<Data, AFError>) -> Void) {
-        httpClient.execute(WeatherEndPoints.forecastForLatLon(lat, lon), model: Weather.self, completion: completion)
+        httpClient.execute(WeatherEndPoints.forecastForLatLon(lat, lon), completion: completion)
     }
 }

@@ -9,12 +9,24 @@ import UIKit
 
 class HomeViewController: UIViewController {
     // MARK: - Lifecycle
-    var viewmodel = HomeViewModel()
+    var viewmodel: HomeViewModel
+    var locationManager: LocationProvider
+    init(_ viewmodel: HomeViewModel, locationManager: LocationProvider) {
+        self.viewmodel = viewmodel
+        self.locationManager = locationManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
-        viewmodel.autorizeCitiesApi()
         super.viewDidLoad()
-        self.view.backgroundColor = .blue
+        viewmodel.autorizeCitiesApi()
         setupUI()
+        locationManager.requestAuthorization()
+        if let location = locationManager.currentUserLocation {
+            let weather = viewmodel.forecastForToday(location: location)
+        }
     }
     var button1: UIButton = {
         let button = UIButton()
@@ -33,13 +45,14 @@ class HomeViewController: UIViewController {
         return button
     }()
     @objc func leftTapped(_ sender: UIButton) {
-        viewmodel.forecastForToday()
-        //coordinator?.coordinateToMap()
+        //viewmodel.forecastForToday(location: <#T##CLLocation#>)
+        coordinator?.coordinateToMap()
     }
     @objc func rightTapped(_ sender: UIButton) {
         coordinator?.coordinateToSearch()
     }
     func setupUI() {
+        self.view.backgroundColor = .blue
         view.addSubview(button1)
         view.addSubview(button2)
         button1.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true

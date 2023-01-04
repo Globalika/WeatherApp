@@ -43,6 +43,8 @@
 		89AADDD829659D87006664FC /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AADDD729659D87006664FC /* City.swift */; };
 		89AADDD92965AD72006664FC /* WeatherApp.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89AADDAB2964ECBC006664FC /* WeatherApp.plist */; };
 		89AADDDB2965C3C4006664FC /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AADDDA2965C3C4006664FC /* Settings.swift */; };
+		89AADDDE2965F3FC006664FC /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AADDDD2965F3FC006664FC /* LocationProvider.swift */; };
+		89AADDE02965F47B006664FC /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AADDDF2965F47B006664FC /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +87,8 @@
 		89AADDD52965900A006664FC /* Temperature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temperature.swift; sourceTree = "<group>"; };
 		89AADDD729659D87006664FC /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		89AADDDA2965C3C4006664FC /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		89AADDDD2965F3FC006664FC /* LocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationProvider.swift; sourceTree = "<group>"; };
+		89AADDDF2965F47B006664FC /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		8A3EF449FB8E321E141E6632 /* Pods-WeatherApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.debug.xcconfig"; path = "Target Support Files/Pods-WeatherApp/Pods-WeatherApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,14 +134,15 @@
 		894CFF79296458DC0023FAD3 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				89AADDDC2965F3D7006664FC /* Location */,
 				89AADDA82964EC20006664FC /* Configuration */,
 				89AADD952964A7D7006664FC /* Protocols */,
 				89AADD922964A781006664FC /* Coordinators */,
 				89AADD9129648CD9006664FC /* Extensions */,
 				89AADD902964848F006664FC /* Network */,
 				89AADD8E2964847D006664FC /* Models */,
-				89AADD8D29648476006664FC /* ViewModels */,
 				89AADD8C29648470006664FC /* Views */,
+				89AADD8D29648476006664FC /* ViewModels */,
 				89AADD8B29648466006664FC /* ViewControllers */,
 				894CFF7A296458DC0023FAD3 /* AppDelegate.swift */,
 				894CFF85296458DD0023FAD3 /* LaunchScreen.storyboard */,
@@ -264,6 +269,15 @@
 				89AADDCD296588D0006664FC /* ServiceType.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		89AADDDC2965F3D7006664FC /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				89AADDDD2965F3FC006664FC /* LocationProvider.swift */,
+				89AADDDF2965F47B006664FC /* LocationManager.swift */,
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		D7ACBA5DB0730135B894FEA2 /* Frameworks */ = {
@@ -426,6 +440,7 @@
 				89AADDAA2964EC66006664FC /* ConfigurationManager.swift in Sources */,
 				89AADDB52965805A006664FC /* DayForecastCell.swift in Sources */,
 				89AADDCC296588BA006664FC /* NetworkingType.swift in Sources */,
+				89AADDE02965F47B006664FC /* LocationManager.swift in Sources */,
 				89AADDC5296587D5006664FC /* WeatherEndpoint.swift in Sources */,
 				89AADDA72964E9F8006664FC /* ViewController+Extension.swift in Sources */,
 				89AADDBF29658762006664FC /* WeatherServices.swift in Sources */,
@@ -435,6 +450,7 @@
 				89AADDC129658778006664FC /* CityServices.swift in Sources */,
 				89AADDD62965900A006664FC /* Temperature.swift in Sources */,
 				89AADDDB2965C3C4006664FC /* Settings.swift in Sources */,
+				89AADDDE2965F3FC006664FC /* LocationProvider.swift in Sources */,
 				89AADDAF29657DD2006664FC /* Wind.swift in Sources */,
 				89AADD992964A8BF006664FC /* HomeCoordinator.swift in Sources */,
 				894CFF7F296458DC0023FAD3 /* HomeViewController.swift in Sources */,

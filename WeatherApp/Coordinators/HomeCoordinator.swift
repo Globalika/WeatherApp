@@ -19,7 +19,8 @@ class HomeCoordinator: Coordinator, HomeFlow {
         self.navigationController = navigationController
     }
     func start() {
-        let homeViewController = HomeViewController()
+        let homeViewController = HomeViewController(HomeViewModel(),
+                                                    locationManager: LocationManager())
         homeViewController.coordinator = self
         navigationController.pushViewController(homeViewController, animated: true)
     }
