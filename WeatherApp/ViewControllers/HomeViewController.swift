@@ -33,7 +33,8 @@ class HomeViewController: UIViewController {
         return button
     }()
     @objc func leftTapped(_ sender: UIButton) {
-        coordinator?.coordinateToMap()
+        viewmodel.forecastForToday()
+        //coordinator?.coordinateToMap()
     }
     @objc func rightTapped(_ sender: UIButton) {
         coordinator?.coordinateToSearch()

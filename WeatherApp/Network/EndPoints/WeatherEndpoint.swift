@@ -16,7 +16,7 @@ enum WeatherEndPoints: EndPoint {
     var method: HTTPMethod {
         switch self {
         case .weatherForCity, .forecastForLatLon:
-            return .post
+            return .get
         }
     }
     var path: String {
@@ -29,11 +29,11 @@ enum WeatherEndPoints: EndPoint {
         switch self {
         case let .weatherForCity(city):
             return ["q": city,
-                    "appid": "\(ConfigurationManager.shared.getWeatherApiUrl() ?? "")"]
+                    "appid": "\(ConfigurationManager.shared.getWeatherApiKey() ?? "")"]
         case let .forecastForLatLon(lat, lon):
             return ["lat": lat,
                     "lon": lon,
-                    "appid": "\(ConfigurationManager.shared.getWeatherApiUrl() ?? "")"]
+                    "appid": "\(ConfigurationManager.shared.getCitiesApiKey() ?? "")"]
         }
     }
     var headers: HTTPHeaders {
