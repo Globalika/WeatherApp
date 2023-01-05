@@ -9,8 +9,11 @@ import UIKit
 
 class SearchViewController: UIViewController {
     var viewmodel = SearchViewModel()
+    var coordinator: SearchCoordinator?
     override func viewDidLoad() {
         view.backgroundColor = .cyan
+        navigationItem.backButtonTitle = "Back"
+//!!!
         setupUI()
     }
     var button2: UIButton = {
@@ -21,7 +24,6 @@ class SearchViewController: UIViewController {
         button.addTarget(self, action: #selector(rightTapped), for: .touchUpInside)
         return button
     }()
-    var coordinator: SearchCoordinator?
     @objc func rightTapped(_ sender: UIButton) {
         viewmodel.getCities(for: "lvi")
         

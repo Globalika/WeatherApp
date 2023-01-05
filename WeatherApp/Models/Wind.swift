@@ -21,3 +21,9 @@ extension Wind {
         } else { return nil }
     }
 }
+
+extension Wind {
+    var speedDescription: String {
+        String(speed) + "m/sec"
+    }
+}

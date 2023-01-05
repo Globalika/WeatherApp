@@ -8,13 +8,21 @@
 import Alamofire
 import CoreLocation
 
+protocol ViewModelDelegate: AnyObject {
+    func onDataChanged()
+}
+
 class HomeViewModel {
-    var currentCityWeather: Weather = Weather()
-    var listOfDayForecast: [Weather] = []
-    var listOfHourForecast: [Weather] = []
+    var currentCityMain: Main = Main() {
+        didSet {
+            delegate?.onDataChanged()
+        }
+    }
+    var listOfDayForecast: [Main] = []
+    var listOfHourForecast: [Main] = []
     var citiesService = CityServices(httpClient: HttpClient())
     var weatherService = WeatherServices(httpClient: HttpClient())
-
+    weak var delegate: ViewModelDelegate?
     func autorizeCitiesApi() {
         citiesService.autorize { result in
             switch result {
@@ -27,7 +35,8 @@ class HomeViewModel {
             }
         }
     }
-    func forecastForToday(location: CLLocation) -> Weather? {
+    @discardableResult
+    func forecastForToday(location: CLLocation) -> Main? {
         weatherService.forecastForLatLon(location.coordinate.latitude,
                                          location.coordinate.longitude) { [weak self] result in
             switch result {
@@ -36,7 +45,7 @@ class HomeViewModel {
                    let weatherList = jsonDict["list"] as? [Any] {
                     self?.listOfHourForecast = weatherList
                         .compactMap { $0 as? [String: Any] }
-                        .compactMap { Weather(from: $0) }
+                        .compactMap { Main(from: $0) }
                     let groupedList = self?.listOfHourForecast
                         .groupedBy(dateComponents: [.day])
                         .map { $0.value }
@@ -47,22 +56,22 @@ class HomeViewModel {
                            let weather = group.first?.weather,
                            let date = group.first?.date,
                            let humidity = group.first?.humidity {
-                            self?.listOfDayForecast.append(Weather(date: date,
-                                                                   minTemp: min.minTemp,
-                                                                   maxTemp: max.maxTemp,
-                                                                   humidity: humidity,
-                                                                   wind: wind,
-                                                                   weather: weather))
+                            self?.listOfDayForecast.append(Main(date: date,
+                                                                minTemp: min.minTemp,
+                                                                maxTemp: max.maxTemp,
+                                                                humidity: humidity,
+                                                                wind: wind,
+                                                                weather: weather))
                         }
                     }
-                    if let weather = self?.listOfDayForecast.first {
-                        self?.currentCityWeather = weather
+                    if let main = self?.listOfDayForecast.first {
+                        self?.currentCityMain = main
                     }
                 }
             case .failure(let error):
                 print(error)
             }
         }
-        return currentCityWeather
+        return currentCityMain
     }
 }
