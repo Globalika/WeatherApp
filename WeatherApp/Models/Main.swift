@@ -57,20 +57,21 @@ extension Main {
         case saturday = "Sat"
         case sunday = "Sun"
         init?(rawValue: Int) {
+            print(rawValue)
             switch rawValue {
-            case 0:
-                self = .monday
             case 1:
-                self = .tuesday
+                self = .monday
             case 2:
-                self = .wednesday
+                self = .tuesday
             case 3:
-                self = .thursday
+                self = .wednesday
             case 4:
-                self = .friday
+                self = .thursday
             case 5:
-                self = .saturday
+                self = .friday
             case 6:
+                self = .saturday
+            case 7:
                 self = .sunday
             default:
                 return nil

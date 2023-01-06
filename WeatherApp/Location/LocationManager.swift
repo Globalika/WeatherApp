@@ -36,18 +36,3 @@ class LocationManager: LocationProvider {
         manager.startUpdatingLocation()
     }
 }
-//    func getUserCoordinates(location: CLLocation) -> String {
-//        if let location = locations.last {
-//            let geocoder = CLGeocoder()
-//
-//            geocoder.reverseGeocodeLocation(lastLocation) { [weak self] (placemarks, error) in
-//                if error == nil {
-//                    if let firstLocation = placemarks?[0],
-//                        let cityName = firstLocation.locality { // get the city name
-//                        self?.locationManager.stopUpdatingLocation()
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}

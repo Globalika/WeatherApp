@@ -10,9 +10,9 @@ import CoreLocation
 
 protocol HomeViewModelDelegate: AnyObject {
     func onDataChanged()
-    func onHourDataChanged()
-    func onDayDataChanged()
-    func onCityNameChanged()
+//    func onHourDataChanged()
+//    func onDayDataChanged()
+//    func onCityNameChanged()
 }
 
 class HomeViewModel {
@@ -23,17 +23,17 @@ class HomeViewModel {
     }
     var cityName: String = "" {
         didSet {
-            delegate?.onCityNameChanged()
+            //delegate?.onCityNameChanged()
         }
     }
     var listOfDayForecast: [Main] = [] {
         didSet {
-            delegate?.onDayDataChanged()
+            //delegate?.onDayDataChanged()
         }
     }
     var listOfHourForecast: [Main] = [] {
         didSet {
-            delegate?.onHourDataChanged()
+            //delegate?.onHourDataChanged()
         }
     }
     var citiesService = CityServices(httpClient: HttpClient())
@@ -52,47 +52,59 @@ class HomeViewModel {
             }
         }
     }
-
-    @discardableResult
-    func forecastForToday(location: CLLocation) -> Main? {
-        weatherService.forecastForLatLon(location.coordinate.latitude,
-                                         location.coordinate.longitude) { [weak self] result in
+    
+    func forecastForToday(cityName: String) {
+        weatherService.weatherForCity(cityName) { [weak self] result in
             switch result {
             case .success(let data):
-                if let jsonDict = try? (JSONSerialization.jsonObject(with: data) as? [String: Any]),
-                   let weatherList = jsonDict["list"] as? [Any],
-                   let city = jsonDict["city"] as? [String: Any],
-                   let name = city["name"] as? String {
-                    self?.cityName = name
-                    self?.listOfHourForecast = weatherList
-                        .compactMap { $0 as? [String: Any] }
-                        .compactMap { Main(from: $0) }
-                    let groupedList = self?.listOfHourForecast
-                        .groupedBy(dateComponents: [.day])
-                        .map { $0.value }
-                    groupedList?.forEach { group in
-                        if let max = group.max(by: { $0.maxTemp < $1.maxTemp }),
-                           let min = group.min(by: { $0.minTemp < $1.minTemp }),
-                           let wind = group.first?.wind,
-                           let weather = group.first?.weather,
-                           let date = group.first?.date,
-                           let humidity = group.first?.humidity {
-                            self?.listOfDayForecast.append(Main(date: date,
-                                                                minTemp: min.minTemp,
-                                                                maxTemp: max.maxTemp,
-                                                                humidity: humidity,
-                                                                wind: wind,
-                                                                weather: weather))
-                        }
-                    }
-                    if let main = self?.listOfDayForecast.first {
-                        self?.currentCityMain = main
-                    }
-                }
+                self?.parse(data)
             case .failure(let error):
                 print(error)
             }
         }
-        return currentCityMain
+    }
+
+    func forecastForToday(_ lat: Double,_ lon: Double) {
+        weatherService.forecastForLatLon(lat, lon) { [weak self] result in
+            switch result {
+            case .success(let data):
+                self?.parse(data)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+
+    private func parse(_ data: Data) {
+        if let dictionary = try? (JSONSerialization.jsonObject(with: data) as? [String: Any]),
+           let weatherList = dictionary["list"] as? [Any],
+           let city = dictionary["city"] as? [String: Any],
+           let name = city["name"] as? String {
+            cityName = name
+            listOfHourForecast = weatherList
+                .compactMap { $0 as? [String: Any] }
+                .compactMap { Main(from: $0) }
+            let groupedList = listOfHourForecast
+                .groupedBy(dateComponents: [.day])
+                .map { $0.value }
+            groupedList.forEach { group in
+                if let max = group.max(by: { $0.maxTemp < $1.maxTemp }),
+                   let min = group.min(by: { $0.minTemp < $1.minTemp }),
+                   let wind = group.first?.wind,
+                   let weather = group.first?.weather,
+                   let date = group.first?.date,
+                   let humidity = group.first?.humidity {
+                    listOfDayForecast.append(Main(date: date,
+                                                  minTemp: min.minTemp,
+                                                  maxTemp: max.maxTemp,
+                                                  humidity: humidity,
+                                                  wind: wind,
+                                                  weather: weather))
+                }
+            }
+            if let main = listOfDayForecast.first {
+                currentCityMain = main
+            }
+        }
     }
 }

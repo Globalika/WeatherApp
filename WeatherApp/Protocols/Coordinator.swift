@@ -23,7 +23,15 @@ extension Coordinator {
         navigationController.pushViewController(viewController, animated: true)
     }
 
+    func pushLeft(_ viewController: UIViewController) {
+        navigationController.pushViewControllerFromLeft(controller: viewController)
+    }
+
     func pop() {
-        navigationController.popToRootViewController(animated: true)
+        navigationController.popViewController(animated: false)
+    }
+
+    func popLeft() {
+        navigationController.popViewControllerToLeft()
     }
 }

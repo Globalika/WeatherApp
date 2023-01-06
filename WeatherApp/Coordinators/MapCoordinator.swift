@@ -16,6 +16,6 @@ class MapCoordinator: Coordinator {
     func start() {
         let mapViewController = MapViewController()
         mapViewController.coordinator = self
-        push(mapViewController)
+        pushLeft(mapViewController)
     }
 }

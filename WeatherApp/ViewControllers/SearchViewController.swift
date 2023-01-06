@@ -96,6 +96,11 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         return TableConstants.tableRowHeight
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewmodel.getCities(for: viewmodel.cities[indexPath.row].name)
+        coordinator?.pop()
+    }
+
     private enum TableConstants {
         static let tableRowHeight: CGFloat = 40
     }

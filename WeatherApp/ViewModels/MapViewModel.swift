@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+protocol MapViewModelDelegate: AnyObject {
+    func onLocationChanged()
+}
+
+class MapViewModel {
+}

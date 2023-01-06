@@ -47,6 +47,14 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
     }
     // MARK: - Lifecycle
 
+    override func viewDidAppear(_ animated: Bool) {
+        onDataChanged()
+//        onCityNameChanged()
+//        onDayDataChanged()
+//        onHourDataChanged()
+//        onDayDataChanged()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.weatherBlueColor
@@ -59,18 +67,21 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         setupHourhourCollectionViewView()
         setupDayTableView()
     }
-    func onCityNameChanged() {
-        setupNavigation()
-    }
+//    func onCityNameChanged() {
+//        setupNavigation()
+//    }
     func onDataChanged() {
+        setupNavigation()
         setupCityInfoView()
-    }
-    func onHourDataChanged() {
         hourCollectionView.reloadData()
-    }
-    func onDayDataChanged() {
         dayTableView.reloadData()
     }
+//    func onHourDataChanged() {
+//        hourCollectionView.reloadData()
+//    }
+//    func onDayDataChanged() {
+//        dayTableView.reloadData()
+//    }
     @objc func mapTapped(_ sender: UIButton) {
         coordinator?.coordinateToMap()
     }
@@ -137,7 +148,8 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         viewmodel.autorizeCitiesApi()
         locationManager.requestAuthorization()
         if let location = locationManager.currentUserLocation {
-            viewmodel.forecastForToday(location: location)
+            viewmodel.forecastForToday(location.coordinate.latitude,
+                                       location.coordinate.longitude)
         }
     }
 }
@@ -149,8 +161,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var rowCell = UITableViewCell()
+        rowCell.selectionStyle = .none
         if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.dayCellID, for: indexPath) as? DayForecastCell {
-            cell.configure(viewmodel.currentCityMain)
+            cell.configure(viewmodel.listOfDayForecast[indexPath.row])
             rowCell = cell
         }
         return rowCell
@@ -164,6 +177,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         static let itemHeight: CGFloat = 60
     }
 }
+
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewmodel.listOfHourForecast.count
@@ -172,7 +186,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var rowCell = UICollectionViewCell()
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.hourCellID, for: indexPath) as? HourForecastCell {
-            cell.configure(viewmodel.currentCityMain)
+            cell.configure(viewmodel.listOfDayForecast[indexPath.row])
             rowCell = cell
         }
         return rowCell
