@@ -16,8 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let path = Bundle.main.path(forResource: "WeatherApp", ofType: "plist")
         let dict = NSDictionary.init(contentsOfFile: path!)
         ConfigurationManager.shared.setProperties(source: dict!)
-        let window = UIWindow()
-        coordinator = AppCoordinator(window: window)
+        coordinator = AppCoordinator()
         coordinator?.start()
         return true
     }

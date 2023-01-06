@@ -30,6 +30,19 @@ extension UIViewController {
         button.addTarget(self, action: selector, for: .touchUpInside)
         return UIBarButtonItem(customView: button)
     }
+    func createTextView(view: UITextView) -> UIBarButtonItem {
+        view.contentMode = .left
+        return UIBarButtonItem(customView: view)
+    }
+    func statusBarBackgroundColor(color: UIColor) {
+        let view = UIView(frame: CGRect(x: 0.0,
+                                        y: 0.0,
+                                        width: UIScreen.main.bounds.size.width,
+                                        height: UIApplication.shared.statusBarFrame.height)
+        )
+        view.backgroundColor = color
+        self.view.addSubview(view)
+    }
 }
 
 //

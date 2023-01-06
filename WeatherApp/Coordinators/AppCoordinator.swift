@@ -10,14 +10,22 @@ import UIKit
 class AppCoordinator: Coordinator {
     var navigationController: UINavigationController
     let window: UIWindow
-    init(window: UIWindow) {
+    init(window: UIWindow = UIWindow(),
+         navigation: UINavigationController = UINavigationController()) {
         self.window = window
-        navigationController = UINavigationController()
+        navigationController = navigation
+        window.configure(with: navigation)
     }
     func start() {
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
         let homeCoordinator = HomeCoordinator(navigationController: navigationController)
         coordinate(to: homeCoordinator)
+    }
+}
+
+// MARK: - UIWindow Extension
+private extension UIWindow {
+    func configure(with navigation: UINavigationController) {
+        makeKeyAndVisible()
+        rootViewController = navigation
     }
 }

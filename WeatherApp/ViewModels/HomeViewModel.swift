@@ -8,7 +8,7 @@
 import Alamofire
 import CoreLocation
 
-protocol ViewModelDelegate: AnyObject {
+protocol HomeViewModelDelegate: AnyObject {
     func onDataChanged()
     func onHourDataChanged()
     func onDayDataChanged()
@@ -20,7 +20,7 @@ class HomeViewModel {
             delegate?.onDataChanged()
         }
     }
-    var cityName: String = ""
+    var cityName: String = "434344343"
     var listOfDayForecast: [Main] = [] {
         didSet {
             delegate?.onDayDataChanged()
@@ -33,7 +33,7 @@ class HomeViewModel {
     }
     var citiesService = CityServices(httpClient: HttpClient())
     var weatherService = WeatherServices(httpClient: HttpClient())
-    weak var delegate: ViewModelDelegate?
+    weak var delegate: HomeViewModelDelegate?
     func autorizeCitiesApi() {
         citiesService.autorize { result in
             switch result {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, ViewModelDelegate {
+class HomeViewController: UIViewController, HomeViewModelDelegate {
     // MARK: - Properties
     var viewmodel: HomeViewModel
     var locationManager: LocationProvider
@@ -36,7 +36,7 @@ class HomeViewController: UIViewController, ViewModelDelegate {
     }
     // MARK: - Lifecycle
     func onDataChanged() {
-        configureUI()
+        configure()
     }
     func onHourDataChanged() {
         hourCollectionView.reloadData()
@@ -50,7 +50,7 @@ class HomeViewController: UIViewController, ViewModelDelegate {
         configureLocation()
         setupHourhourCollectionViewView()
         setupDayTableView()
-        configureUI()
+        configure()
     }
     private func setupHourhourCollectionViewView() {
         hourCollectionView.delegate = self
@@ -71,6 +71,7 @@ class HomeViewController: UIViewController, ViewModelDelegate {
         dayTableView.dataSource = self
         dayTableView.register(DayForecastCell.self, forCellReuseIdentifier: "DayForecastCell")
         dayTableView.translatesAutoresizingMaskIntoConstraints = false
+        dayTableView.backgroundColor = .weatherBlueColor
         view.addSubview(dayTableView)
         NSLayoutConstraint.activate([
             dayTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -79,7 +80,11 @@ class HomeViewController: UIViewController, ViewModelDelegate {
             dayTableView.topAnchor.constraint(equalTo: hourCollectionView.bottomAnchor)
         ])
     }
-    func configureUI() {
+    func configure() {
+        setupNavigation()
+        setupCityInfoView()
+    }
+    func setupNavigation() {
         createCustomNavigationBar(color: .weatherBlueColor)
         let mapButton = createCustomButton(image: Constants.mapImage,
                                            title: viewmodel.cityName,
@@ -90,7 +95,7 @@ class HomeViewController: UIViewController, ViewModelDelegate {
                                               selector: #selector(searchTapped))
         navigationItem.leftBarButtonItem = mapButton
         navigationItem.rightBarButtonItem = searchButton
-        setupCityInfoView()
+        navigationController?.navigationBar.backgroundColor = .weatherBlueColor
     }
     @objc func mapTapped(_ sender: UIButton) {
         coordinator?.coordinateToMap()
@@ -134,13 +139,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         }
         return rowCell
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
 }
-
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewmodel.listOfHourForecast.count
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var rowCell = UICollectionViewCell()
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourForecastCell", for: indexPath) as? HourForecastCell {

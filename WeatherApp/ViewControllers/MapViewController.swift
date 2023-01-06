@@ -22,7 +22,7 @@ class MapViewController: UIViewController {
     }()
     var coordinator: MapCoordinator?
     @objc func leftTapped(_ sender: UIButton) {
-        coordinator?.dismiss()
+        coordinator?.pop()
     }
     func setupUI() {
         view.addSubview(button1)

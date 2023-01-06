@@ -7,9 +7,18 @@
 
 import Foundation
 
+protocol SearchViewModelDelegate: AnyObject {
+    func onCitiesChanged()
+}
+
 class SearchViewModel {
-    var cities: [City] = []
+    var cities: [City] = [] {
+        didSet {
+            delegate?.onCitiesChanged()
+        }
+    }
     var service = CityServices(httpClient: HttpClient())
+    weak var delegate: SearchViewModelDelegate?
     func getCities(for key: String) {
         service.keywordForCities(key) { [weak self] result in
             switch result {
