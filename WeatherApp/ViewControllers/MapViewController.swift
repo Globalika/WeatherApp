@@ -19,8 +19,8 @@ class MapViewController: UIViewController, HomeViewModelDelegate {
 
     // MARK: - Properties
     var coordinator: MapCoordinator?
-    var locationManager = LocationManager()
-    var homeViewModel = HomeViewModel()
+    var locationManager: LocationProvider
+    weak var homeViewModel: HomeViewModel?
     private let mapView: MKMapView = {
         let map = MKMapView()
         map.translatesAutoresizingMaskIntoConstraints = false
@@ -28,13 +28,24 @@ class MapViewController: UIViewController, HomeViewModelDelegate {
         return map
     }()
 
+    // MARK: - Initializers
+    init(_ viewmodel: HomeViewModel, locationManager: LocationProvider) {
+        self.homeViewModel = viewmodel
+        self.locationManager = locationManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         navigationController?.navigationBar.barStyle = .default
         navigationController?.navigationBar.titleTextAttributes =
         [NSAttributedString.Key.foregroundColor: UIColor.weatherWhiteColor]
+        navigationItem.title = homeViewModel?.cityName
         view.backgroundColor = .weatherBlueColor
-        homeViewModel.delegate = self
+        homeViewModel?.delegate = self
         configure()
         onDataChanged()
     }
@@ -45,7 +56,7 @@ class MapViewController: UIViewController, HomeViewModelDelegate {
     }
 
     func onDataChanged() {
-        navigationItem.title = homeViewModel.cityName
+        navigationItem.title = homeViewModel?.cityName
     }
 
     func setupNavigation() {
@@ -95,7 +106,7 @@ class MapViewController: UIViewController, HomeViewModelDelegate {
     }
 
     private func loadCityWeather(_ lat: Double, _ lon: Double) {
-        homeViewModel.forecastForToday(lat, lon)
+        homeViewModel?.forecastForToday(lat, lon)
     }
 
     func centerViewOnUserLocation() {

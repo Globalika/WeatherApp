@@ -27,7 +27,6 @@ class ConfigurationManager {
         guard let apiUrl = properties?["WEATHER_API_URL"] as? String else {
             return ""
         }
-    
         return apiUrl
     }
 

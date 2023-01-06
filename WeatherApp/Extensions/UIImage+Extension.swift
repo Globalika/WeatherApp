@@ -9,7 +9,6 @@ import UIKit
 
 extension UIImage {
     static func windImage(from wind: Wind) -> UIImage? {
-        //let degree = (wind.deg % 360) < 0 ? (wind.deg % 360) + 360 : (wind.deg % 360)
         switch wind.deg {
         case 0...22, 338...359:
             return UIImage(named: "icon_wind_n")

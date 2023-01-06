@@ -40,7 +40,7 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         self.viewmodel = viewmodel
         self.locationManager = locationManager
         super.init(nibName: nil, bundle: nil)
-        viewmodel.delegate = self
+        self.viewmodel.delegate = self
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -48,11 +48,10 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
     // MARK: - Lifecycle
 
     override func viewDidAppear(_ animated: Bool) {
-        onDataChanged()
-//        onCityNameChanged()
-//        onDayDataChanged()
-//        onHourDataChanged()
-//        onDayDataChanged()
+        setupNavigation()
+        setupCityInfoView()
+        hourCollectionView.reloadData()
+        dayTableView.reloadData()
     }
 
     override func viewDidLoad() {
@@ -67,21 +66,14 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         setupHourhourCollectionViewView()
         setupDayTableView()
     }
-//    func onCityNameChanged() {
-//        setupNavigation()
-//    }
+
     func onDataChanged() {
         setupNavigation()
         setupCityInfoView()
         hourCollectionView.reloadData()
-        dayTableView.reloadData()
+        dayTableView.reloadDataSavingSelections()
     }
-//    func onHourDataChanged() {
-//        hourCollectionView.reloadData()
-//    }
-//    func onDayDataChanged() {
-//        dayTableView.reloadData()
-//    }
+
     @objc func mapTapped(_ sender: UIButton) {
         coordinator?.coordinateToMap()
     }
@@ -109,7 +101,7 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         dayTableView.dataSource = self
         dayTableView.register(DayForecastCell.self, forCellReuseIdentifier: Constants.dayCellID)
         dayTableView.translatesAutoresizingMaskIntoConstraints = false
-        dayTableView.backgroundColor = .weatherBlueColor
+        dayTableView.backgroundColor = .weatherWhiteColor
         view.addSubview(dayTableView)
         NSLayoutConstraint.activate([
             dayTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -148,10 +140,27 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         viewmodel.autorizeCitiesApi()
         locationManager.requestAuthorization()
         if let location = locationManager.currentUserLocation {
+            //showActivityIndicator()
             viewmodel.forecastForToday(location.coordinate.latitude,
                                        location.coordinate.longitude)
         }
     }
+
+//    // MARK - Spinner
+//    // todo move to seperate class / extension
+//    var activityView: UIActivityIndicatorView?
+//    func showActivityIndicator() {
+//        activityView = UIActivityIndicatorView(style: .large)
+//        activityView?.center = self.view.center
+//        self.view.addSubview(activityView!)
+//        activityView?.startAnimating()
+//    }
+//
+//    func hideActivityIndicator() {
+//        if (activityView != nil) {
+//            activityView?.stopAnimating()
+//        }
+//    }
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
@@ -171,6 +180,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return TableConstant.itemHeight
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewmodel.currentCityMain = viewmodel.listOfDayForecast[indexPath.row]
     }
 
     private enum TableConstant {

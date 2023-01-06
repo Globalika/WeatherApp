@@ -57,7 +57,6 @@ extension Main {
         case saturday = "Sat"
         case sunday = "Sun"
         init?(rawValue: Int) {
-            print(rawValue)
             switch rawValue {
             case 1:
                 self = .monday

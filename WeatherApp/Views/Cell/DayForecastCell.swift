@@ -11,20 +11,17 @@ class DayForecastCell: UITableViewCell {
     var weekLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .weatherBlackColor
         label.numberOfLines = 1
         return label
     }()
     var temperatureLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .weatherBlackColor
         label.numberOfLines = 1
         return label
     }()
     var weatherImage: UIImageView = {
         var image = UIImageView()
-        image.tintColor = .weatherBlackColor
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -33,8 +30,10 @@ class DayForecastCell: UITableViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
+    private var color: UIColor = .weatherBlackColor
     func configure(_ main: Main) {
-        self.backgroundColor = .weatherBlueColor
+        self.backgroundColor = .weatherWhiteColor
+        //selectionStyle = .none
         weekLabel.text = main.getWeekFromDate()?.rawValue ?? ""
         temperatureLabel.text = main.temperatureDescription
         weatherImage.image = UIImage.weatherImage(from: main.weather)
@@ -55,6 +54,9 @@ class DayForecastCell: UITableViewCell {
     }
 
     func setupSubViews() {
+        weekLabel.textColor = color
+        temperatureLabel.textColor = color
+        weatherImage.tintColor = color
         stack.addArrangedSubview(weekLabel)
         stack.addArrangedSubview(temperatureLabel)
         stack.addArrangedSubview(weatherImage)
@@ -69,5 +71,10 @@ class DayForecastCell: UITableViewCell {
             temperatureLabel.topAnchor.constraint(equalTo: stack.topAnchor),
             temperatureLabel.bottomAnchor.constraint(equalTo: stack.bottomAnchor)
         ])
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        self.color = selected ? .weatherBlueColor : .weatherBlackColor
+        setupSubViews()
     }
 }

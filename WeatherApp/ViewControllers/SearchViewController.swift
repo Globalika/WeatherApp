@@ -16,9 +16,20 @@ class SearchViewController: UIViewController, SearchViewModelDelegate {
     }
     // MARK: - Properties
     var viewmodel = SearchViewModel()
+    weak var homeViewModel: HomeViewModel?
     var coordinator: SearchCoordinator?
     var searchView: UITextView = UITextView()
     private lazy var citiesTableView = UITableView()
+
+    // MARK: - Initializers
+    init(_ viewmodel: HomeViewModel?) {
+        self.homeViewModel = viewmodel
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         view.backgroundColor = .weatherWhiteColor
@@ -26,7 +37,6 @@ class SearchViewController: UIViewController, SearchViewModelDelegate {
         setupNavigation()
         setupDayTableView()
     }
-
     func onCitiesChanged() {
         self.citiesTableView.reloadData()
     }
@@ -97,7 +107,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewmodel.getCities(for: viewmodel.cities[indexPath.row].name)
+        homeViewModel?.forecastForToday(cityName: viewmodel.cities[indexPath.row].name)
         coordinator?.pop()
     }
 

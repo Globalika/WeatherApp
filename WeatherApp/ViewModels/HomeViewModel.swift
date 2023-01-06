@@ -10,9 +10,6 @@ import CoreLocation
 
 protocol HomeViewModelDelegate: AnyObject {
     func onDataChanged()
-//    func onHourDataChanged()
-//    func onDayDataChanged()
-//    func onCityNameChanged()
 }
 
 class HomeViewModel {
@@ -21,23 +18,11 @@ class HomeViewModel {
             delegate?.onDataChanged()
         }
     }
-    var cityName: String = "" {
-        didSet {
-            //delegate?.onCityNameChanged()
-        }
-    }
-    var listOfDayForecast: [Main] = [] {
-        didSet {
-            //delegate?.onDayDataChanged()
-        }
-    }
-    var listOfHourForecast: [Main] = [] {
-        didSet {
-            //delegate?.onHourDataChanged()
-        }
-    }
-    var citiesService = CityServices(httpClient: HttpClient())
-    var weatherService = WeatherServices(httpClient: HttpClient())
+    var cityName: String = ""
+    var listOfDayForecast: [Main] = []
+    var listOfHourForecast: [Main] = []
+    private var citiesService = CityServices(httpClient: HttpClient())
+    private var weatherService = WeatherServices(httpClient: HttpClient())
     weak var delegate: HomeViewModelDelegate?
 
     func autorizeCitiesApi() {
@@ -52,7 +37,7 @@ class HomeViewModel {
             }
         }
     }
-    
+
     func forecastForToday(cityName: String) {
         weatherService.weatherForCity(cityName) { [weak self] result in
             switch result {
@@ -64,7 +49,7 @@ class HomeViewModel {
         }
     }
 
-    func forecastForToday(_ lat: Double,_ lon: Double) {
+    func forecastForToday(_ lat: Double, _ lon: Double) {
         weatherService.forecastForLatLon(lat, lon) { [weak self] result in
             switch result {
             case .success(let data):
@@ -76,6 +61,9 @@ class HomeViewModel {
     }
 
     private func parse(_ data: Data) {
+        cityName = ""
+        listOfHourForecast = []
+        listOfDayForecast = []
         if let dictionary = try? (JSONSerialization.jsonObject(with: data) as? [String: Any]),
            let weatherList = dictionary["list"] as? [Any],
            let city = dictionary["city"] as? [String: Any],

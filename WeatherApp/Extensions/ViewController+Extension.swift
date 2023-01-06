@@ -27,6 +27,8 @@ extension UIViewController {
         button.imageView?.contentMode = .scaleAspectFit
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 4)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
         button.addTarget(self, action: selector, for: .touchUpInside)
         return UIBarButtonItem(customView: button)
     }
