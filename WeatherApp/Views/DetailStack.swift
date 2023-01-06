@@ -29,6 +29,7 @@ class DetailStack: UIStackView {
         info.textColor = .weatherWhiteColor
         configure()
     }
+
     func configure() {
         self.addSubview(leftImage)
         self.addSubview(info)

@@ -11,5 +11,4 @@ protocol LocationProvider {
     var currentUserLocation: CLLocation? { get }
     func requestAuthorization()
     func startUpdating()
-    //func getUserCoordinates(location: CLLocation) -> String
 }

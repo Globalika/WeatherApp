@@ -7,30 +7,41 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, SearchViewModelDelegate, UITextViewDelegate {
-    func onCitiesChanged() {
-        self.citiesTableView.reloadData()
+class SearchViewController: UIViewController, SearchViewModelDelegate {
+    // MARK: - Constants
+    private enum Constants {
+        static let cityCellID = "CityCell"
+        static let backButtonName = "ic_back"
+        static let searchButtonName = "ic_search"
     }
+    // MARK: - Properties
     var viewmodel = SearchViewModel()
     var coordinator: SearchCoordinator?
     var searchView: UITextView = UITextView()
     private lazy var citiesTableView = UITableView()
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         view.backgroundColor = .weatherWhiteColor
-        searchView.delegate = self
         viewmodel.delegate = self
         setupNavigation()
         setupDayTableView()
-        setupUI()
     }
-    func textViewDidChange(_ textView: UITextView) {
-        viewmodel.getCities(for: textView.text)
+
+    func onCitiesChanged() {
+        self.citiesTableView.reloadData()
     }
+    @objc func beckTapped(_ sender: UIButton) {
+        coordinator?.pop()
+    }
+    @objc func searchTapped(_ sender: UIButton) {
+        viewmodel.getCities(for: searchView.text)
+    }
+
     private func setupDayTableView() {
         citiesTableView.delegate = self
         citiesTableView.dataSource = self
         self.view.addSubview(citiesTableView)
-        citiesTableView.register(CityCell.self, forCellReuseIdentifier: "CityCell")
+        citiesTableView.register(CityCell.self, forCellReuseIdentifier: Constants.cityCellID)
         citiesTableView.translatesAutoresizingMaskIntoConstraints = false
         citiesTableView.backgroundColor = .weatherWhiteColor
         NSLayoutConstraint.activate([
@@ -40,12 +51,13 @@ class SearchViewController: UIViewController, SearchViewModelDelegate, UITextVie
             citiesTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
     }
+
     func setupNavigation() {
         createCustomNavigationBar(color: .weatherBlueColor)
-        let backButton = createCustomButton(image: "ic_back",
+        let backButton = createCustomButton(image: Constants.backButtonName,
                                            color: .weatherWhiteColor,
                                            selector: #selector(beckTapped))
-        let searchButton = createCustomButton(image: "ic_search",
+        let searchButton = createCustomButton(image: Constants.searchButtonName,
                                               color: .weatherWhiteColor,
                                               selector: #selector(searchTapped))
         searchView.layer.cornerRadius = 5
@@ -64,32 +76,27 @@ class SearchViewController: UIViewController, SearchViewModelDelegate, UITextVie
         }
         statusBarBackgroundColor(color: .weatherBlueColor)
     }
-    @objc func beckTapped(_ sender: UIButton) {
-        coordinator?.pop()
-    }
-    @objc func searchTapped(_ sender: UIButton) {
-        //
-    }
-    func setupUI() {
-    }
 }
+
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        1
-    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewmodel.cities.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var rowCell = UITableViewCell()
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "CityCell", for: indexPath) as? CityCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cityCellID, for: indexPath) as? CityCell {
             cell.configure(viewmodel.cities[indexPath.row])
             rowCell = cell
         }
         return rowCell
     }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        return TableConstants.tableRowHeight
+    }
+
+    private enum TableConstants {
+        static let tableRowHeight: CGFloat = 40
     }
 }

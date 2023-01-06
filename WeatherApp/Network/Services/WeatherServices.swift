@@ -12,9 +12,11 @@ class WeatherServices: ServiceType {
     init(httpClient: HttpClient) {
         self.httpClient = httpClient
     }
+
     func weatherForCity(_ city: String, completion: @escaping (Result<Data, AFError>) -> Void) {
         httpClient.execute(WeatherEndPoints.weatherForCity(city), completion: completion)
     }
+
     func forecastForLatLon(_ lat: Double, _ lon: Double, completion: @escaping (Result<Data, AFError>) -> Void) {
         httpClient.execute(WeatherEndPoints.forecastForLatLon(lat, lon), completion: completion)
     }

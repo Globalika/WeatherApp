@@ -16,6 +16,7 @@ class AppCoordinator: Coordinator {
         navigationController = navigation
         window.configure(with: navigation)
     }
+
     func start() {
         let homeCoordinator = HomeCoordinator(navigationController: navigationController)
         coordinate(to: homeCoordinator)

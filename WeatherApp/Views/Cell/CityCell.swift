@@ -16,11 +16,13 @@ class CityCell: UITableViewCell {
         label.numberOfLines = 1
         return label
     }()
+
     func configure(_ city: City) {
         self.backgroundColor = .weatherWhiteColor
         cityLabel.text = city.name + ", " + city.countryCode
         setupUI()
     }
+
     func setupUI() {
         addSubview(cityLabel)
         NSLayoutConstraint.activate([

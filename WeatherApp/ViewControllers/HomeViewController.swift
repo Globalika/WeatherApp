@@ -8,6 +8,15 @@
 import UIKit
 
 class HomeViewController: UIViewController, HomeViewModelDelegate {
+    // MARK: - Constants
+    private enum Constants {
+        static let mapImage = "ic_place"
+        static let searchImage = "ic_my_location"
+        static let dayCellID = "DayForecastCell"
+        static let hourCellID = "HourForecastCell"
+        static let hourCollectionViewHeight: CGFloat = 80
+    }
+
     // MARK: - Properties
     var viewmodel: HomeViewModel
     var locationManager: LocationProvider
@@ -25,6 +34,8 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         return collectionView
     }()
     private lazy var dayTableView = UITableView()
+
+    // MARK: - Initializers
     init(_ viewmodel: HomeViewModel, locationManager: LocationProvider) {
         self.viewmodel = viewmodel
         self.locationManager = locationManager
@@ -35,8 +46,21 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     // MARK: - Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor.weatherBlueColor
+        configureUI()
+    }
+    func configureUI() {
+        configureLocation()
+        setupNavigation()
+        setupCityInfoView()
+        setupHourhourCollectionViewView()
+        setupDayTableView()
+    }
     func onDataChanged() {
-        configure()
+        setupCityInfoView()
     }
     func onHourDataChanged() {
         hourCollectionView.reloadData()
@@ -44,18 +68,17 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
     func onDayDataChanged() {
         dayTableView.reloadData()
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = UIColor.weatherBlueColor
-        configureLocation()
-        setupHourhourCollectionViewView()
-        setupDayTableView()
-        configure()
+    @objc func mapTapped(_ sender: UIButton) {
+        coordinator?.coordinateToMap()
     }
+    @objc func searchTapped(_ sender: UIButton) {
+        coordinator?.coordinateToSearch()
+    }
+
     private func setupHourhourCollectionViewView() {
         hourCollectionView.delegate = self
         hourCollectionView.dataSource = self
-        hourCollectionView.register(HourForecastCell.self, forCellWithReuseIdentifier: "HourForecastCell")
+        hourCollectionView.register(HourForecastCell.self, forCellWithReuseIdentifier: Constants.hourCellID)
         hourCollectionView.translatesAutoresizingMaskIntoConstraints = false
         hourCollectionView.tintColor = .weatherBlueLightColor
         view.addSubview(hourCollectionView)
@@ -63,13 +86,14 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
             hourCollectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             hourCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             hourCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            hourCollectionView.heightAnchor.constraint(equalToConstant: 80)
+            hourCollectionView.heightAnchor.constraint(equalToConstant: Constants.hourCollectionViewHeight)
         ])
     }
+
     private func setupDayTableView() {
         dayTableView.delegate = self
         dayTableView.dataSource = self
-        dayTableView.register(DayForecastCell.self, forCellReuseIdentifier: "DayForecastCell")
+        dayTableView.register(DayForecastCell.self, forCellReuseIdentifier: Constants.dayCellID)
         dayTableView.translatesAutoresizingMaskIntoConstraints = false
         dayTableView.backgroundColor = .weatherBlueColor
         view.addSubview(dayTableView)
@@ -80,10 +104,7 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
             dayTableView.topAnchor.constraint(equalTo: hourCollectionView.bottomAnchor)
         ])
     }
-    func configure() {
-        setupNavigation()
-        setupCityInfoView()
-    }
+
     func setupNavigation() {
         createCustomNavigationBar(color: .weatherBlueColor)
         let mapButton = createCustomButton(image: Constants.mapImage,
@@ -97,12 +118,7 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         navigationItem.rightBarButtonItem = searchButton
         navigationController?.navigationBar.backgroundColor = .weatherBlueColor
     }
-    @objc func mapTapped(_ sender: UIButton) {
-        coordinator?.coordinateToMap()
-    }
-    @objc func searchTapped(_ sender: UIButton) {
-        coordinator?.coordinateToSearch()
-    }
+
     func setupCityInfoView() {
         cityInfoView.setup(cityMain: viewmodel.currentCityMain)
         view.addSubview(cityInfoView)
@@ -113,16 +129,13 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
             cityInfoView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 4)
         ])
     }
+
     func configureLocation() {
         viewmodel.autorizeCitiesApi()
         locationManager.requestAuthorization()
         if let location = locationManager.currentUserLocation {
             viewmodel.forecastForToday(location: location)
         }
-    }
-    enum Constants {
-        static let mapImage = "ic_place"
-        static let searchImage = "ic_my_location"
     }
 }
 
@@ -133,35 +146,42 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var rowCell = UITableViewCell()
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "DayForecastCell", for: indexPath) as? DayForecastCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.dayCellID, for: indexPath) as? DayForecastCell {
             cell.configure(viewmodel.currentCityMain)
             rowCell = cell
         }
         return rowCell
     }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return TableConstant.itemHeight
+    }
+
+    private enum TableConstant {
+        static let itemHeight: CGFloat = 60
     }
 }
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewmodel.listOfHourForecast.count
     }
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var rowCell = UICollectionViewCell()
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourForecastCell", for: indexPath) as? HourForecastCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.hourCellID, for: indexPath) as? HourForecastCell {
             cell.configure(viewmodel.currentCityMain)
             rowCell = cell
         }
         return rowCell
     }
 }
+
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         let width = itemWidth(for: view.frame.width, spacing: 0)
 
-        return CGSize(width: width, height: LayoutConstant.itemHeight)
+        return CGSize(width: width, height: CollectionConstant.itemHeight)
     }
 
     func itemWidth(for width: CGFloat, spacing: CGFloat) -> CGFloat {
@@ -172,8 +192,8 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
         return finalWidth - 5.0
     }
-    private enum LayoutConstant {
-        static let spacing: CGFloat = 16.0
+
+    private enum CollectionConstant {
         static let itemHeight: CGFloat = 100.0
     }
 }

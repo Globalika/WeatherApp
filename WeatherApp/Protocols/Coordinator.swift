@@ -18,9 +18,11 @@ extension Coordinator {
     func coordinate(to coordinator: Coordinator) {
         coordinator.start()
     }
+
     func push(_ viewController: UIViewController) {
         navigationController.pushViewController(viewController, animated: true)
     }
+
     func pop() {
         navigationController.popToRootViewController(animated: true)
     }

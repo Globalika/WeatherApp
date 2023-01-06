@@ -12,6 +12,7 @@ class MapCoordinator: Coordinator {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
+
     func start() {
         let mapViewController = MapViewController()
         mapViewController.coordinator = self

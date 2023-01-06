@@ -33,6 +33,7 @@ class HourForecastCell: UICollectionViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
+
     func configure(_ main: Main) {
         self.backgroundColor = .weatherBlueLightColor
         timeLabel.text = main.date.hour
@@ -40,15 +41,13 @@ class HourForecastCell: UICollectionViewCell {
         temperatureLabel.text = main.temperatureAverage
         setupStack()
     }
+
     func setupStack() {
         stack.axis = .vertical
         stack.alignment = .center
         addSubview(stack)
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: self.topAnchor),
-            //stack.widthAnchor.constraint(equalToConstant: 50),
-            //stack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            //stack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             stack.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
         setupSubViews()

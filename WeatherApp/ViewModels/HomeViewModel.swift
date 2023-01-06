@@ -20,7 +20,7 @@ class HomeViewModel {
             delegate?.onDataChanged()
         }
     }
-    var cityName: String = "434344343"
+    var cityName: String = ""
     var listOfDayForecast: [Main] = [] {
         didSet {
             delegate?.onDayDataChanged()
@@ -34,6 +34,7 @@ class HomeViewModel {
     var citiesService = CityServices(httpClient: HttpClient())
     var weatherService = WeatherServices(httpClient: HttpClient())
     weak var delegate: HomeViewModelDelegate?
+
     func autorizeCitiesApi() {
         citiesService.autorize { result in
             switch result {
@@ -46,6 +47,7 @@ class HomeViewModel {
             }
         }
     }
+
     @discardableResult
     func forecastForToday(location: CLLocation) -> Main? {
         weatherService.forecastForLatLon(location.coordinate.latitude,

@@ -19,6 +19,7 @@ class SearchViewModel {
     }
     var service = CityServices(httpClient: HttpClient())
     weak var delegate: SearchViewModelDelegate?
+
     func getCities(for key: String) {
         service.keywordForCities(key) { [weak self] result in
             switch result {
