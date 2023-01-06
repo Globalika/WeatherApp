@@ -59,6 +59,9 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         setupHourhourCollectionViewView()
         setupDayTableView()
     }
+    func onCityNameChanged() {
+        setupNavigation()
+    }
     func onDataChanged() {
         setupCityInfoView()
     }

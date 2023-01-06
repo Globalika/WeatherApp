@@ -12,6 +12,7 @@ protocol HomeViewModelDelegate: AnyObject {
     func onDataChanged()
     func onHourDataChanged()
     func onDayDataChanged()
+    func onCityNameChanged()
 }
 
 class HomeViewModel {
@@ -20,7 +21,11 @@ class HomeViewModel {
             delegate?.onDataChanged()
         }
     }
-    var cityName: String = ""
+    var cityName: String = "" {
+        didSet {
+            delegate?.onCityNameChanged()
+        }
+    }
     var listOfDayForecast: [Main] = [] {
         didSet {
             delegate?.onDayDataChanged()
