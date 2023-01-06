@@ -10,6 +10,8 @@ import CoreLocation
 
 protocol ViewModelDelegate: AnyObject {
     func onDataChanged()
+    func onHourDataChanged()
+    func onDayDataChanged()
 }
 
 class HomeViewModel {
@@ -18,8 +20,17 @@ class HomeViewModel {
             delegate?.onDataChanged()
         }
     }
-    var listOfDayForecast: [Main] = []
-    var listOfHourForecast: [Main] = []
+    var cityName: String = ""
+    var listOfDayForecast: [Main] = [] {
+        didSet {
+            delegate?.onDayDataChanged()
+        }
+    }
+    var listOfHourForecast: [Main] = [] {
+        didSet {
+            delegate?.onHourDataChanged()
+        }
+    }
     var citiesService = CityServices(httpClient: HttpClient())
     var weatherService = WeatherServices(httpClient: HttpClient())
     weak var delegate: ViewModelDelegate?
@@ -42,7 +53,10 @@ class HomeViewModel {
             switch result {
             case .success(let data):
                 if let jsonDict = try? (JSONSerialization.jsonObject(with: data) as? [String: Any]),
-                   let weatherList = jsonDict["list"] as? [Any] {
+                   let weatherList = jsonDict["list"] as? [Any],
+                   let city = jsonDict["city"] as? [String: Any],
+                   let name = city["name"] as? String {
+                    self?.cityName = name
                     self?.listOfHourForecast = weatherList
                         .compactMap { $0 as? [String: Any] }
                         .compactMap { Main(from: $0) }

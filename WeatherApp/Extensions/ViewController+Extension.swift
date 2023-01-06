@@ -5,7 +5,33 @@
 //  Created by Volodymyr Seredovych on 04.01.2023.
 //
 
-//import UIKit
+import UIKit
+
+extension UIViewController {
+    func createCustomNavigationBar(color: UIColor) {
+        navigationController?.navigationBar.barTintColor = color
+    }
+    func createCustomButton(image: String,
+                            title: String = "",
+                            color: UIColor,
+                            selector: Selector) -> UIBarButtonItem {
+        let button = UIButton(type: .system)
+        button.setImage(
+            UIImage(named: image)?.withRenderingMode(.alwaysTemplate),
+            for: .normal
+        )
+        if !title.isEmpty {
+            button.setTitle(title, for: .normal)
+        }
+        button.tintColor = color
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(self, action: selector, for: .touchUpInside)
+        return UIBarButtonItem(customView: button)
+    }
+}
+
 //
 //protocol Allerts {
 //    func showError(_ error: Error, _ title: String?, _ actions: [(String, ExecuteAction?)]? )

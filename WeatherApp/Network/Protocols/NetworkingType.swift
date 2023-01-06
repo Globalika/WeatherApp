@@ -10,7 +10,7 @@ import Alamofire
 protocol NetworkingType {
     @discardableResult
     func execute(_ endPoint: EndPoint,
-                  completion: @escaping (Result<Data, AFError>) -> Void) -> DataRequest
+                 completion: @escaping (Result<Data, AFError>) -> Void) -> DataRequest
 }
 
 extension NetworkingType {

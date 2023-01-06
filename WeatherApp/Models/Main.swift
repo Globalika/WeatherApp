@@ -80,7 +80,10 @@ extension Main {
     func getWeekFromDate() -> WeekDay? {
         return WeekDay(rawValue: Calendar.current.component(.weekday, from: date))
     }
-    var temperatureDescription: String { // round(value * 10) / 10.0
+    var temperatureDescription: String {
         String(round(maxTemp.tempInCelsius * 10) / 10.0) + "°/" + String(round(minTemp.tempInCelsius * 10) / 10.0) + "°"
+    }
+    var temperatureAverage: String {
+        String((round(maxTemp.tempInCelsius + minTemp.tempInCelsius) / 2 * 10) / 10.0) + "°"
     }
 }

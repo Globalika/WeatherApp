@@ -14,4 +14,19 @@ extension Date {
         formatter.dateFormat = format
         return formatter.date(from: str) ?? Date(timeIntervalSince1970: TimeInterval.pi)
     }
+    var month: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM"
+        return dateFormatter.string(from: self)
+    }
+    var day: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        return dateFormatter.string(from: self)
+    }
+    var hour: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm"
+        return dateFormatter.string(from: self)
+    }
 }

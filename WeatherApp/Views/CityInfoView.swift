@@ -46,6 +46,7 @@ class CityInfoView: UIView {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
+        label.textColor = .weatherWhiteColor
         return label
     }()
     func setup(cityMain: Main) {
@@ -67,12 +68,12 @@ class CityInfoView: UIView {
         }
     }
     private func setupDateLabel() {
-        dateLabel.text = cityMain.getWeekFromDate()?.rawValue
+        dateLabel.text = (cityMain.getWeekFromDate()?.rawValue ?? "") + ", " + cityMain.date.day + " " + cityMain.date.month
         self.addSubview(dateLabel)
         NSLayoutConstraint.activate([
             dateLabel.topAnchor.constraint(equalTo: self.topAnchor),
             dateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            dateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            dateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15)
         ])
     }
     private func setupWeatherStack() {
@@ -80,7 +81,7 @@ class CityInfoView: UIView {
         NSLayoutConstraint.activate([
             weatherStack.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             weatherStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
-            weatherStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
+            weatherStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15)
         ])
     }
     private func setupWetherImageView() {
@@ -91,7 +92,7 @@ class CityInfoView: UIView {
         for (index, image) in detailImages.enumerated() {
             let stack = DetailStack()
             let full = index == detailImages.count - 1
-            stack.setup(full: full)
+            stack.setup(full: full, vertical: false)
             stack.leftImage.image = image
             stack.info.text = info[index]
             stack.rightImage.image = full ? windImage : UIImage()

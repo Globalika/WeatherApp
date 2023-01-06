@@ -177,8 +177,8 @@
 			children = (
 				89AADDB22965801F006664FC /* CityInfoView.swift */,
 				89AADDE52966E15B006664FC /* DetailStack.swift */,
-				89AADDB42965805A006664FC /* DayForecastCell.swift */,
 				89AADDB629658069006664FC /* HourForecastCell.swift */,
+				89AADDB42965805A006664FC /* DayForecastCell.swift */,
 				89AADDBC296580CE006664FC /* MapView.swift */,
 			);
 			path = Views;
