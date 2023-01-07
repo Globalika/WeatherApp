@@ -103,6 +103,7 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         dayTableView.register(DayForecastCell.self, forCellReuseIdentifier: Constants.dayCellID)
         dayTableView.translatesAutoresizingMaskIntoConstraints = false
         dayTableView.backgroundColor = .weatherWhiteColor
+        dayTableView.separatorStyle = .none
         view.addSubview(dayTableView)
         NSLayoutConstraint.activate([
             dayTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),

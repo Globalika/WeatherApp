@@ -35,10 +35,18 @@ class DayForecastCell: UITableViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
+
     private var color: UIColor = .weatherBlackColor
 
     func configure(_ main: Main) {
         self.backgroundColor = .weatherWhiteColor
+        layer.shadowColor = UIColor.weatherBlueBorderColor.cgColor
+        layer.shadowOffset = .zero
+        layer.shadowRadius = 5
+        let shadowFrame: CGRect = layer.bounds
+        let shadowPath: CGPath = UIBezierPath(rect: shadowFrame).cgPath
+        layer.shadowPath = shadowPath
+        layer.masksToBounds = false
         weekLabel.text = main.date.week
         temperatureLabel.text = main.temperatureDescription
         temperatureLabel.textAlignment = .center
@@ -73,6 +81,8 @@ class DayForecastCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         self.color = selected ? .weatherBlueColor : .weatherBlackColor
+        layer.shadowOpacity = selected ? 1 : 0
+        layer.zPosition = selected ? 50 : 0
         setupSubViews()
     }
 }
