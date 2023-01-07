@@ -52,6 +52,11 @@ extension Main {
         String(round(maxTemp.tempInCelsius * 10) / 10.0) + "°/" + String(round(minTemp.tempInCelsius * 10) / 10.0) + "°"
     }
     var temperatureAverage: String {
-        String((round(maxTemp.tempInCelsius + minTemp.tempInCelsius) / 2 * 10) / 10.0) + "°"
+        if (maxTemp.tempInCelsius < 0 && minTemp.tempInCelsius < 0) ||
+            (maxTemp.tempInCelsius > 0 && minTemp.tempInCelsius > 0) {
+            return String((round(maxTemp.tempInCelsius + minTemp.tempInCelsius) / 2 * 10) / 10.0) + "°"
+        } else {
+            return String((round(maxTemp.tempInCelsius + minTemp.tempInCelsius) * 10) / 10.0) + "°"
+        }
     }
 }

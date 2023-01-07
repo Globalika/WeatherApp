@@ -90,11 +90,11 @@ class HomeViewModel {
                                                   weather: weather))
                 }
             }
+            listOfHourForecast = listOfHourForecast[...(listOfHourForecast.count / 5)].asArray()
+            listOfDayForecast = listOfDayForecast.sorted(by: { $0.date < $1.date })
             if let main = listOfDayForecast.first {
                 currentCityMain = main
             }
-            listOfHourForecast = listOfHourForecast[...(listOfHourForecast.count / 5)].asArray()
-            listOfDayForecast = listOfDayForecast.sorted(by: { $0.date < $1.date })
         }
     }
 }
