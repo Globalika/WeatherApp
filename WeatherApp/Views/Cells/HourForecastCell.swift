@@ -8,11 +8,15 @@
 import UIKit
 
 class HourForecastCell: UICollectionViewCell {
+    private enum Constants {
+        static let stackMargins =  UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        static let stackSpacing: CGFloat = 2
+    }
+
     var timeLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .weatherWhiteColor
-        //label.contentMode = .center
         label.numberOfLines = 1
         return label
     }()
@@ -26,7 +30,6 @@ class HourForecastCell: UICollectionViewCell {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .weatherWhiteColor
-        //label.contentMode = .center
         label.numberOfLines = 1
         return label
     }()
@@ -47,7 +50,9 @@ class HourForecastCell: UICollectionViewCell {
     func setupStack() {
         stack.axis = .vertical
         stack.alignment = .center
-        stack.spacing = 2
+        stack.spacing = Constants.stackSpacing
+        stack.layoutMargins = Constants.stackMargins
+        stack.isLayoutMarginsRelativeArrangement = true
         addSubview(stack)
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: self.topAnchor),
@@ -60,14 +65,5 @@ class HourForecastCell: UICollectionViewCell {
         stack.addArrangedSubview(timeLabel)
         stack.addArrangedSubview(weatherImage)
         stack.addArrangedSubview(temperatureLabel)
-        NSLayoutConstraint.activate([
-
-            
-            weatherImage.centerXAnchor.constraint(equalTo: stack.centerXAnchor),
-            temperatureLabel.centerXAnchor.constraint(equalTo: stack.centerXAnchor),
-            timeLabel.centerXAnchor.constraint(equalTo: stack.centerXAnchor),
-            //weatherImage.widthAnchor.constraint(equalTo: temperatureLabel.widthAnchor),
-            //weatherImage.heightAnchor.constraint(equalTo: weatherImage.widthAnchor)
-        ])
     }
 }

@@ -8,6 +8,10 @@
 import UIKit
 
 class DayForecastCell: UITableViewCell {
+    private enum Constants {
+        static let stackMargins =  UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+    }
+
     var weekLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -45,14 +49,14 @@ class DayForecastCell: UITableViewCell {
     func setupStack() {
         stack.axis = .horizontal
         stack.alignment = .center
-        stack.distribution = .fill
+        stack.distribution = .equalSpacing
+        stack.layoutMargins = Constants.stackMargins
+        stack.isLayoutMarginsRelativeArrangement = true
         addSubview(stack)
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: self.topAnchor),
-            stack.trailingAnchor.constraint(equalTo: self.trailingAnchor,
-                                            constant: UIScreen.main.bounds.size.width * -0.05),
-            stack.leadingAnchor.constraint(equalTo: self.leadingAnchor,
-                                           constant: UIScreen.main.bounds.size.width * 0.05),
+            stack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            stack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             stack.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
         setupSubViews()
@@ -65,12 +69,6 @@ class DayForecastCell: UITableViewCell {
         stack.addArrangedSubview(weekLabel)
         stack.addArrangedSubview(temperatureLabel)
         stack.addArrangedSubview(weatherImage)
-        NSLayoutConstraint.activate([
-            weekLabel.leadingAnchor.constraint(equalTo: stack.leadingAnchor),
-            temperatureLabel.centerXAnchor.constraint(equalTo: stack.centerXAnchor),
-            weatherImage.trailingAnchor.constraint(equalTo: stack.trailingAnchor),
-            weatherImage.heightAnchor.constraint(equalTo: weatherImage.widthAnchor)
-        ])
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

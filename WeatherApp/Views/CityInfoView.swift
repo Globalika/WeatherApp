@@ -10,6 +10,7 @@ import UIKit
 class CityInfoView: UIView {
     // MARK: - Constants
     private enum Constants {
+        static let stackMargins =  UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         static let stackSpacing: CGFloat = 2
         static var detailImages = [
             UIImage(named: "ic_temp"),
@@ -42,10 +43,12 @@ class CityInfoView: UIView {
     var weatherRightStack: UIStackView = {
         var stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.distribution = .fill
+        stack.distribution = .fillEqually
         stack.alignment = .leading
         stack.spacing = Constants.stackSpacing
         stack.axis = .vertical
+        stack.layoutMargins = Constants.stackMargins
+        stack.isLayoutMarginsRelativeArrangement = true
         return stack
     }()
     var dateLabel: UILabel = {
@@ -91,7 +94,7 @@ class CityInfoView: UIView {
         self.addSubview(weatherStack)
         NSLayoutConstraint.activate([
             weatherStack.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            weatherStack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            weatherStack.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
     }
 
@@ -99,7 +102,7 @@ class CityInfoView: UIView {
         weatherImageView.image = weatherImage
         weatherStack.addArrangedSubview(weatherImageView)
         NSLayoutConstraint.activate([
-            //weatherImageView.heightAnchor.constraint(equalTo: weatherImageView.widthAnchor, multiplier: 0.6)
+            weatherImageView.heightAnchor.constraint(equalTo: weatherImageView.widthAnchor, multiplier: 0.9)
         ])
     }
 
@@ -113,15 +116,7 @@ class CityInfoView: UIView {
             stack.rightImage.image = full ? windImage : UIImage()
             stack.translatesAutoresizingMaskIntoConstraints = false
             weatherRightStack.addArrangedSubview(stack)
-            NSLayoutConstraint.activate([
-                stack.leadingAnchor.constraint(equalTo: weatherRightStack.leadingAnchor),
-                stack.trailingAnchor.constraint(lessThanOrEqualTo: weatherRightStack.trailingAnchor)
-            ])
         }
         weatherStack.addArrangedSubview(weatherRightStack)
-        NSLayoutConstraint.activate([
-            weatherRightStack.topAnchor.constraint(equalTo: weatherStack.topAnchor),
-            weatherRightStack.bottomAnchor.constraint(equalTo: weatherStack.bottomAnchor)
-        ])
     }
 }

@@ -88,8 +88,8 @@ class SearchViewController: UIViewController, SearchViewModelDelegate, UITextVie
            let width = navigationController?.navigationBar.bounds.width {
             searchView.font = .systemFont(ofSize: height * 0.5, weight: .medium)
             NSLayoutConstraint.activate([
-                searchView.widthAnchor.constraint(equalToConstant: width / 1.7),
-                searchView.heightAnchor.constraint(equalToConstant: height * 0.8)
+                searchView.widthAnchor.constraint(equalToConstant: width / 1.6),
+                searchView.heightAnchor.constraint(equalToConstant: height * 0.7)
             ])
         }
         statusBarBackgroundColor(color: .weatherBlueColor)

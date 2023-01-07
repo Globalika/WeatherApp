@@ -14,8 +14,7 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         static let searchImage = "ic_my_location"
         static let dayCellID = "DayForecastCell"
         static let hourCellID = "HourForecastCell"
-        static let collectionHeight: CGFloat = 80
-        static let collectionSpacing: CGFloat = 15
+        static let collectionHeight: CGFloat = 90
     }
 
     // MARK: - Properties
@@ -30,7 +29,6 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
     private let hourCollectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
         viewLayout.scrollDirection = .horizontal
-        viewLayout.minimumLineSpacing = Constants.collectionSpacing
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
         collectionView.backgroundColor = .weatherBlueLightColor
         return collectionView
