@@ -14,7 +14,6 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         static let searchImage = "ic_my_location"
         static let dayCellID = "DayForecastCell"
         static let hourCellID = "HourForecastCell"
-        static let hourCollectionViewHeight: CGFloat = 80
     }
 
     // MARK: - Properties
@@ -90,9 +89,9 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         view.addSubview(hourCollectionView)
         NSLayoutConstraint.activate([
             hourCollectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            hourCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            hourCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            hourCollectionView.heightAnchor.constraint(equalToConstant: Constants.hourCollectionViewHeight)
+            hourCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            hourCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            hourCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: UIDevice.current.orientation == .portrait ? 0.2 : 0.3)
         ])
     }
 
@@ -130,9 +129,9 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         view.addSubview(cityInfoView)
         NSLayoutConstraint.activate([
             cityInfoView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            cityInfoView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35),
             cityInfoView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            cityInfoView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            cityInfoView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 4)
+            cityInfoView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
 

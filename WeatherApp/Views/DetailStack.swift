@@ -8,9 +8,13 @@
 import UIKit
 
 class DetailStack: UIStackView {
+    private enum Constants {
+        static let stackSpacing: CGFloat = 5
+    }
     var leftImage: UIImageView = {
         var image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
         return image
     }()
     var info: UILabel = {
@@ -21,37 +25,29 @@ class DetailStack: UIStackView {
     var rightImage: UIImageView = {
         var image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
         return image
     }()
-    func setup(full: Bool, vertical: Bool = true) {
-        self.axis = vertical ? .vertical : .horizontal
+
+    func setup(full: Bool) {
+        axis = .horizontal
         rightImage.isHidden = !full
         info.textColor = .weatherWhiteColor
+        distribution = .equalSpacing
+        alignment = .center
+        spacing = Constants.stackSpacing
         configure()
     }
 
     func configure() {
-        self.addSubview(leftImage)
-        self.addSubview(info)
-        self.addSubview(rightImage)
-        if self.axis == .horizontal {
-            NSLayoutConstraint.activate([
-                leftImage.topAnchor.constraint(equalTo: self.topAnchor),
-                leftImage.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-                rightImage.topAnchor.constraint(equalTo: self.topAnchor),
-                rightImage.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-                leftImage.trailingAnchor.constraint(equalTo: info.leadingAnchor),
-                info.trailingAnchor.constraint(equalTo: rightImage.leadingAnchor)
-            ])
-        } else {
-            NSLayoutConstraint.activate([
-                leftImage.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-                leftImage.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-                rightImage.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-                rightImage.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-                leftImage.bottomAnchor.constraint(equalTo: info.topAnchor),
-                info.bottomAnchor.constraint(equalTo: rightImage.topAnchor)
-            ])
-        }
+        self.addArrangedSubview(leftImage)
+        self.addArrangedSubview(info)
+        self.addArrangedSubview(rightImage)
+        NSLayoutConstraint.activate([
+            leftImage.heightAnchor.constraint(equalTo: info.heightAnchor, multiplier: 1.3),
+            rightImage.heightAnchor.constraint(equalTo: info.heightAnchor, multiplier: 1.3),
+            leftImage.centerYAnchor.constraint(equalTo: info.centerYAnchor),
+            rightImage.centerYAnchor.constraint(equalTo: info.centerYAnchor)
+        ])
     }
 }

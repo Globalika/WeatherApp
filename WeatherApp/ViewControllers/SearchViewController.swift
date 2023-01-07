@@ -7,19 +7,28 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, SearchViewModelDelegate {
+class SearchViewController: UIViewController, SearchViewModelDelegate, UITextViewDelegate {
     // MARK: - Constants
     private enum Constants {
         static let cityCellID = "CityCell"
         static let backButtonName = "ic_back"
         static let searchButtonName = "ic_search"
         static let searchViewCornerRadius: CGFloat = 5
+        static let searchHint = "Minimin 3 characters"
     }
     // MARK: - Properties
     var viewmodel = SearchViewModel()
     weak var homeViewModel: HomeViewModel?
     var coordinator: SearchCoordinator?
-    var searchView: UITextView = UITextView()
+    var searchView: UITextView = {
+        let view = UITextView()
+        view.layer.cornerRadius = Constants.searchViewCornerRadius
+        view.textContainer.lineBreakMode = .byTruncatingTail
+        view.textContainer.maximumNumberOfLines = 1
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.text = Constants.searchHint
+        return view
+    }()
     private lazy var citiesTableView = UITableView()
 
     // MARK: - Initializers
@@ -71,21 +80,23 @@ class SearchViewController: UIViewController, SearchViewModelDelegate {
         let searchButton = createCustomButton(image: Constants.searchButtonName,
                                               color: .weatherWhiteColor,
                                               selector: #selector(searchTapped))
-        searchView.layer.cornerRadius = Constants.searchViewCornerRadius
-        searchView.textContainer.lineBreakMode = .byTruncatingTail
-        searchView.textContainer.maximumNumberOfLines = 1
-        searchView.translatesAutoresizingMaskIntoConstraints = false
+        searchView.delegate = self
         navigationItem.rightBarButtonItem = searchButton
         navigationItem.leftBarButtonItem = backButton
         navigationItem.titleView = searchView
         if let height = navigationController?.navigationBar.bounds.height,
            let width = navigationController?.navigationBar.bounds.width {
+            searchView.font = .systemFont(ofSize: height * 0.5, weight: .medium)
             NSLayoutConstraint.activate([
-                searchView.widthAnchor.constraint(equalToConstant: width / 1.8),
+                searchView.widthAnchor.constraint(equalToConstant: width / 1.7),
                 searchView.heightAnchor.constraint(equalToConstant: height * 0.8)
             ])
         }
         statusBarBackgroundColor(color: .weatherBlueColor)
+    }
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.text = ""
     }
 }
 
