@@ -23,6 +23,7 @@ class DayForecastCell: UITableViewCell {
     var weatherImage: UIImageView = {
         var image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
         return image
     }()
     var stack: UIStackView = {
@@ -33,10 +34,10 @@ class DayForecastCell: UITableViewCell {
     private var color: UIColor = .weatherBlackColor
     func configure(_ main: Main) {
         self.backgroundColor = .weatherWhiteColor
-        //selectionStyle = .none
-        weekLabel.text = main.getWeekFromDate()?.rawValue ?? ""
+        weekLabel.text = main.date.week
         temperatureLabel.text = main.temperatureDescription
-        weatherImage.image = UIImage.weatherImage(from: main.weather)
+        temperatureLabel.textAlignment = .center
+        weatherImage.image = UIImage.weatherImage(from: main.weather)?.withRenderingMode(.alwaysTemplate)
         setupStack()
     }
     func setupStack() {
@@ -62,14 +63,9 @@ class DayForecastCell: UITableViewCell {
         stack.addArrangedSubview(weatherImage)
         NSLayoutConstraint.activate([
             weekLabel.leadingAnchor.constraint(equalTo: stack.leadingAnchor),
-            temperatureLabel.leadingAnchor.constraint(equalTo: weekLabel.trailingAnchor),
-            weatherImage.leadingAnchor.constraint(equalTo: temperatureLabel.trailingAnchor),
-            weekLabel.topAnchor.constraint(equalTo: stack.topAnchor),
-            weekLabel.bottomAnchor.constraint(equalTo: stack.bottomAnchor),
-            weatherImage.topAnchor.constraint(equalTo: stack.topAnchor),
-            weatherImage.bottomAnchor.constraint(equalTo: stack.bottomAnchor),
-            temperatureLabel.topAnchor.constraint(equalTo: stack.topAnchor),
-            temperatureLabel.bottomAnchor.constraint(equalTo: stack.bottomAnchor)
+            temperatureLabel.centerXAnchor.constraint(equalTo: stack.centerXAnchor),
+            weatherImage.trailingAnchor.constraint(equalTo: stack.trailingAnchor),
+            weatherImage.heightAnchor.constraint(equalTo: weatherImage.widthAnchor)
         ])
     }
 

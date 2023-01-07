@@ -16,18 +16,27 @@ extension Date {
     }
     var month: String {
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages[0])
         dateFormatter.dateFormat = Constants.monthFormat
         return dateFormatter.string(from: self)
     }
     var day: String {
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages[0])
         dateFormatter.dateFormat = Constants.dayFormat
         return dateFormatter.string(from: self)
     }
     var hour: String {
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages[0])
         dateFormatter.dateFormat = Constants.hourFormat
         return dateFormatter.string(from: self)
+    }
+    var week: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages[0])
+        dateFormatter.dateFormat = "EE"
+        return dateFormatter.string(from: self).capitalized
     }
 
     private enum Constants {

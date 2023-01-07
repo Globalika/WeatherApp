@@ -71,7 +71,7 @@ class CityInfoView: UIView {
     }
 
     private func setupDateLabel() {
-        dateLabel.text = (cityMain.getWeekFromDate()?.rawValue ?? "") + ", " + cityMain.date.day + " " + cityMain.date.month
+        dateLabel.text = cityMain.date.week + ", " + cityMain.date.day + " " + cityMain.date.month
         self.addSubview(dateLabel)
         NSLayoutConstraint.activate([
             dateLabel.topAnchor.constraint(equalTo: self.topAnchor),

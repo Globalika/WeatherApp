@@ -48,38 +48,6 @@ extension Main {
 }
 
 extension Main {
-    enum WeekDay: String {
-        case monday = "Mon"
-        case tuesday = "Tue"
-        case wednesday = "Wed"
-        case thursday = "Thu"
-        case friday = "Fri"
-        case saturday = "Sat"
-        case sunday = "Sun"
-        init?(rawValue: Int) {
-            switch rawValue {
-            case 1:
-                self = .monday
-            case 2:
-                self = .tuesday
-            case 3:
-                self = .wednesday
-            case 4:
-                self = .thursday
-            case 5:
-                self = .friday
-            case 6:
-                self = .saturday
-            case 7:
-                self = .sunday
-            default:
-                return nil
-            }
-        }
-    }
-    func getWeekFromDate() -> WeekDay? {
-        return WeekDay(rawValue: Calendar.current.component(.weekday, from: date))
-    }
     var temperatureDescription: String {
         String(round(maxTemp.tempInCelsius * 10) / 10.0) + "°/" + String(round(minTemp.tempInCelsius * 10) / 10.0) + "°"
     }

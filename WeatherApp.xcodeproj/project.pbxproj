@@ -129,14 +129,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		892569FB29686685003826D4 /* Cell */ = {
+		892569FB29686685003826D4 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				89AADDB629658069006664FC /* HourForecastCell.swift */,
 				89AADDB42965805A006664FC /* DayForecastCell.swift */,
 				892569F92968667E003826D4 /* CityCell.swift */,
 			);
-			path = Cell;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		894CFF6E296458DC0023FAD3 = {
@@ -191,7 +191,7 @@
 		89AADD8C29648470006664FC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				892569FB29686685003826D4 /* Cell */,
+				892569FB29686685003826D4 /* Cells */,
 				89AADDB22965801F006664FC /* CityInfoView.swift */,
 				89AADDE52966E15B006664FC /* DetailStack.swift */,
 				89AADDBC296580CE006664FC /* MapView.swift */,
