@@ -14,6 +14,8 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         static let searchImage = "ic_my_location"
         static let dayCellID = "DayForecastCell"
         static let hourCellID = "HourForecastCell"
+        static let collectionHeight: CGFloat = 80
+        static let collectionSpacing: CGFloat = 15
     }
 
     // MARK: - Properties
@@ -28,6 +30,7 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
     private let hourCollectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
         viewLayout.scrollDirection = .horizontal
+        viewLayout.minimumLineSpacing = Constants.collectionSpacing
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
         collectionView.backgroundColor = .weatherBlueLightColor
         return collectionView
@@ -84,6 +87,7 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         hourCollectionView.delegate = self
         hourCollectionView.dataSource = self
         hourCollectionView.register(HourForecastCell.self, forCellWithReuseIdentifier: Constants.hourCellID)
+        hourCollectionView.automaticallyAdjustsScrollIndicatorInsets = true
         hourCollectionView.translatesAutoresizingMaskIntoConstraints = false
         hourCollectionView.tintColor = .weatherBlueLightColor
         view.addSubview(hourCollectionView)
@@ -91,7 +95,7 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
             hourCollectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             hourCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             hourCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            hourCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: UIDevice.current.orientation == .portrait ? 0.2 : 0.3)
+            hourCollectionView.heightAnchor.constraint(equalToConstant: Constants.collectionHeight)
         ])
     }
 
@@ -198,7 +202,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var rowCell = UICollectionViewCell()
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.hourCellID, for: indexPath) as? HourForecastCell {
-            cell.configure(viewmodel.listOfDayForecast[indexPath.row])
+            cell.configure(viewmodel.listOfHourForecast[indexPath.row])
             rowCell = cell
         }
         return rowCell
@@ -207,22 +211,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        let width = itemWidth(for: view.frame.width, spacing: 0)
-
-        return CGSize(width: width, height: CollectionConstant.itemHeight)
-    }
-
-    func itemWidth(for width: CGFloat, spacing: CGFloat) -> CGFloat {
-        let itemsInRow: CGFloat = 2
-
-        let totalSpacing: CGFloat = 2 * spacing + (itemsInRow - 1) * spacing
-        let finalWidth = (width - totalSpacing) / itemsInRow
-
-        return finalWidth - 5.0
-    }
-
-    private enum CollectionConstant {
-        static let itemHeight: CGFloat = 100.0
+        return CGSize(width: Constants.collectionHeight * 0.5, height: Constants.collectionHeight)
     }
 }

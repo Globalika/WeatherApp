@@ -19,3 +19,9 @@ extension Array where Element: Dated {
         return groupedByDateComponents
     }
 }
+
+extension Sequence {
+    func asArray() -> [Element] {
+        return Array(self)
+    }
+}

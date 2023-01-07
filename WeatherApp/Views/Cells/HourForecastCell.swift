@@ -12,6 +12,7 @@ class HourForecastCell: UICollectionViewCell {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .weatherWhiteColor
+        //label.contentMode = .center
         label.numberOfLines = 1
         return label
     }()
@@ -25,6 +26,7 @@ class HourForecastCell: UICollectionViewCell {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .weatherWhiteColor
+        //label.contentMode = .center
         label.numberOfLines = 1
         return label
     }()
@@ -45,6 +47,7 @@ class HourForecastCell: UICollectionViewCell {
     func setupStack() {
         stack.axis = .vertical
         stack.alignment = .center
+        stack.spacing = 2
         addSubview(stack)
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: self.topAnchor),
@@ -58,15 +61,13 @@ class HourForecastCell: UICollectionViewCell {
         stack.addArrangedSubview(weatherImage)
         stack.addArrangedSubview(temperatureLabel)
         NSLayoutConstraint.activate([
-            timeLabel.topAnchor.constraint(equalTo: stack.topAnchor),
-            weatherImage.topAnchor.constraint(equalTo: timeLabel.bottomAnchor),
-            temperatureLabel.topAnchor.constraint(equalTo: weatherImage.bottomAnchor),
-            timeLabel.leadingAnchor.constraint(equalTo: stack.leadingAnchor),
-            timeLabel.trailingAnchor.constraint(equalTo: stack.trailingAnchor),
-            weatherImage.leadingAnchor.constraint(equalTo: stack.leadingAnchor),
-            weatherImage.trailingAnchor.constraint(equalTo: stack.trailingAnchor),
-            temperatureLabel.leadingAnchor.constraint(equalTo: stack.leadingAnchor),
-            temperatureLabel.trailingAnchor.constraint(equalTo: stack.trailingAnchor)
+
+            
+            weatherImage.centerXAnchor.constraint(equalTo: stack.centerXAnchor),
+            temperatureLabel.centerXAnchor.constraint(equalTo: stack.centerXAnchor),
+            timeLabel.centerXAnchor.constraint(equalTo: stack.centerXAnchor),
+            //weatherImage.widthAnchor.constraint(equalTo: temperatureLabel.widthAnchor),
+            //weatherImage.heightAnchor.constraint(equalTo: weatherImage.widthAnchor)
         ])
     }
 }
