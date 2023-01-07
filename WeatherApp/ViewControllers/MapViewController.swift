@@ -45,7 +45,8 @@ class MapViewController: UIViewController, HomeViewModelDelegate {
         [NSAttributedString.Key.foregroundColor: UIColor.weatherWhiteColor]
         navigationItem.title = homeViewModel?.cityName
         view.backgroundColor = .weatherBlueColor
-        homeViewModel?.delegate = self
+        homeViewModel?.delegates.append({ [weak self] in return self})
+        //homeViewModel?.delegate = self
         configure()
         onDataChanged()
     }

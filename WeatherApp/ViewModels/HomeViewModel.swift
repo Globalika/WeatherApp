@@ -12,10 +12,12 @@ protocol HomeViewModelDelegate: AnyObject {
     func onDataChanged()
 }
 
+typealias WeakArray<T> = [() -> T?]
+
 class HomeViewModel {
     var currentCityMain: Main = Main() {
         didSet {
-            delegate?.onDataChanged()
+            delegates.forEach { $0()?.onDataChanged() }
         }
     }
     var cityName: String = ""
@@ -23,8 +25,7 @@ class HomeViewModel {
     var listOfHourForecast: [Main] = []
     private var citiesService = CityServices(httpClient: HttpClient())
     private var weatherService = WeatherServices(httpClient: HttpClient())
-    weak var delegate: HomeViewModelDelegate?
-
+    var delegates = WeakArray<HomeViewModelDelegate>()
     func autorizeCitiesApi() {
         citiesService.autorize { result in
             switch result {
@@ -68,7 +69,9 @@ class HomeViewModel {
            let weatherList = dictionary["list"] as? [Any],
            let city = dictionary["city"] as? [String: Any],
            let name = city["name"] as? String {
-            cityName = name
+            DispatchQueue.main.async {
+                self.cityName = name
+            }
             listOfHourForecast = weatherList
                 .compactMap { $0 as? [String: Any] }
                 .compactMap { Main(from: $0) }
@@ -90,10 +93,12 @@ class HomeViewModel {
                                                   weather: weather))
                 }
             }
-            listOfHourForecast = listOfHourForecast[...(listOfHourForecast.count / 5)].asArray()
-            listOfDayForecast = listOfDayForecast.sorted(by: { $0.date < $1.date })
-            if let main = listOfDayForecast.first {
-                currentCityMain = main
+            DispatchQueue.main.async {
+                self.listOfHourForecast = self.listOfHourForecast[...(self.listOfHourForecast.count / 5)].asArray()
+                self.listOfDayForecast = self.listOfDayForecast.sorted(by: { $0.date < $1.date })
+                if let main = self.listOfDayForecast.first {
+                    self.currentCityMain = main
+                }
             }
         }
     }

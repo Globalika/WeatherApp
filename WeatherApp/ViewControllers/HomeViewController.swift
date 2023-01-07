@@ -40,7 +40,6 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         self.viewmodel = viewmodel
         self.locationManager = locationManager
         super.init(nibName: nil, bundle: nil)
-        self.viewmodel.delegate = self
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -56,7 +55,8 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.weatherBlueColor
+        viewmodel.delegates.append({ [weak self] in return self})
+        view.backgroundColor = UIColor.weatherBlueColor
         configureUI()
     }
     func configureUI() {
@@ -112,7 +112,7 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         ])
     }
 
-    func setupNavigation() {
+    private func setupNavigation() {
         createCustomNavigationBar(color: .weatherBlueColor)
         let mapButton = createCustomButton(image: Constants.mapImage,
                                            title: viewmodel.cityName,
@@ -126,7 +126,7 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         navigationController?.navigationBar.backgroundColor = .weatherBlueColor
     }
 
-    func setupCityInfoView() {
+    private func setupCityInfoView() {
         cityInfoView.setup(cityMain: viewmodel.currentCityMain)
         view.addSubview(cityInfoView)
         NSLayoutConstraint.activate([
@@ -137,7 +137,7 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         ])
     }
 
-    func configureLocation() {
+    private func configureLocation() {
         viewmodel.autorizeCitiesApi()
         locationManager.requestAuthorization()
         if let location = locationManager.currentUserLocation {
