@@ -8,9 +8,9 @@
 import Alamofire
 
 class CityServices: ServiceType {
-    private var httpClient: HttpClient
+    private var httpClient: NetworkingType
 
-    init(httpClient: HttpClient) {
+    init(httpClient: NetworkingType) {
         self.httpClient = httpClient
     }
 

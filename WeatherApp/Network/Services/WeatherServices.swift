@@ -8,8 +8,8 @@
 import Alamofire
 
 class WeatherServices: ServiceType {
-    private var httpClient: HttpClient
-    init(httpClient: HttpClient) {
+    private var httpClient: NetworkingType
+    init(httpClient: NetworkingType) {
         self.httpClient = httpClient
     }
 

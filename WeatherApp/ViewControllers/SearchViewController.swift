@@ -13,6 +13,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate {
         static let cityCellID = "CityCell"
         static let backButtonName = "ic_back"
         static let searchButtonName = "ic_search"
+        static let searchViewCornerRadius: CGFloat = 5
     }
     // MARK: - Properties
     var viewmodel = SearchViewModel()
@@ -70,7 +71,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate {
         let searchButton = createCustomButton(image: Constants.searchButtonName,
                                               color: .weatherWhiteColor,
                                               selector: #selector(searchTapped))
-        searchView.layer.cornerRadius = 5
+        searchView.layer.cornerRadius = Constants.searchViewCornerRadius
         searchView.textContainer.lineBreakMode = .byTruncatingTail
         searchView.textContainer.maximumNumberOfLines = 1
         searchView.translatesAutoresizingMaskIntoConstraints = false

@@ -32,6 +32,7 @@ class DayForecastCell: UITableViewCell {
         return stack
     }()
     private var color: UIColor = .weatherBlackColor
+
     func configure(_ main: Main) {
         self.backgroundColor = .weatherWhiteColor
         weekLabel.text = main.date.week
@@ -40,6 +41,7 @@ class DayForecastCell: UITableViewCell {
         weatherImage.image = UIImage.weatherImage(from: main.weather)?.withRenderingMode(.alwaysTemplate)
         setupStack()
     }
+
     func setupStack() {
         stack.axis = .horizontal
         stack.alignment = .center
@@ -47,8 +49,10 @@ class DayForecastCell: UITableViewCell {
         addSubview(stack)
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: self.topAnchor),
-            stack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            stack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            stack.trailingAnchor.constraint(equalTo: self.trailingAnchor,
+                                            constant: UIScreen.main.bounds.size.width * -0.05),
+            stack.leadingAnchor.constraint(equalTo: self.leadingAnchor,
+                                           constant: UIScreen.main.bounds.size.width * 0.05),
             stack.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
         setupSubViews()

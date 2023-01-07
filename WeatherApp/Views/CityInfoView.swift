@@ -8,12 +8,18 @@
 import UIKit
 
 class CityInfoView: UIView {
+    // MARK: - Constants
+    private enum Constants {
+        static let stackSpacing: CGFloat = 2
+        static var detailImages = [
+            UIImage(named: "ic_temp"),
+            UIImage(named: "ic_humidity"),
+            UIImage(named: "ic_wind")
+        ]
+    }
+
+    // MARK: - Properties
     private var cityMain: Main = Main()
-    private var detailImages = [
-        UIImage(named: "ic_temp"),
-        UIImage(named: "ic_humidity"),
-        UIImage(named: "ic_wind")
-    ]
     private var info: [String] {
         return [cityMain.temperatureDescription,
                 String(cityMain.humidity),
@@ -38,7 +44,7 @@ class CityInfoView: UIView {
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fill
         stack.alignment = .leading
-        stack.spacing = 2
+        stack.spacing = Constants.stackSpacing
         stack.axis = .vertical
         return stack
     }()
@@ -95,14 +101,14 @@ class CityInfoView: UIView {
     }
 
     private func setupWeatherRightStack() {
-        for (index, image) in detailImages.enumerated() {
+        for (index, image) in Constants.detailImages.enumerated() {
             let stack = DetailStack()
-            let full = index == detailImages.count - 1
+            let full = index == Constants.detailImages.count - 1
             stack.setup(full: full, vertical: false)
             stack.leftImage.image = image
             stack.info.text = info[index]
             stack.rightImage.image = full ? windImage : UIImage()
-            stack.spacing = 2
+            stack.spacing = Constants.stackSpacing
             stack.distribution = .fill
             stack.alignment = .center
             stack.translatesAutoresizingMaskIntoConstraints = false

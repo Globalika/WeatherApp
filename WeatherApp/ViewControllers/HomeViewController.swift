@@ -104,9 +104,9 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         dayTableView.backgroundColor = .weatherWhiteColor
         view.addSubview(dayTableView)
         NSLayoutConstraint.activate([
-            dayTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            dayTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            dayTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dayTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            dayTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            dayTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             dayTableView.topAnchor.constraint(equalTo: hourCollectionView.bottomAnchor)
         ])
     }
