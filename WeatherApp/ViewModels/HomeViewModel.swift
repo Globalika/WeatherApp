@@ -10,6 +10,7 @@ import CoreLocation
 
 protocol HomeViewModelDelegate: AnyObject {
     func onDataChanged()
+    func onError(_ error: AFError)
 }
 
 typealias WeakArray<T> = [() -> T?]
@@ -45,7 +46,7 @@ class HomeViewModel {
             case .success(let data):
                 self?.parse(data)
             case .failure(let error):
-                print(error)
+                self?.delegates.forEach { $0()?.onError(error) }
             }
         }
     }
@@ -56,7 +57,7 @@ class HomeViewModel {
             case .success(let data):
                 self?.parse(data)
             case .failure(let error):
-                print(error)
+                self?.delegates.forEach { $0()?.onError(error) }
             }
         }
     }

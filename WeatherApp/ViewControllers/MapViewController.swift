@@ -7,8 +7,8 @@
 
 import UIKit
 import MapKit
+import Alamofire
 
-// doto - update mapcontroller
 class MapViewController: UIViewController, HomeViewModelDelegate {
     // MARK: - Constants
     private enum Constants {
@@ -118,4 +118,8 @@ class MapViewController: UIViewController, HomeViewModelDelegate {
             mapView.setRegion(region, animated: true)
         }
     }
+}
+
+extension MapViewController: Allerts {
+    func onError(_ error: AFError) { }
 }

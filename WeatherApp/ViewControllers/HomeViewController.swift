@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class HomeViewController: UIViewController, HomeViewModelDelegate {
     // MARK: - Constants
@@ -142,27 +143,10 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         viewmodel.autorizeCitiesApi()
         locationManager.requestAuthorization()
         if let location = locationManager.currentUserLocation {
-            //showActivityIndicator()
             viewmodel.forecastForToday(location.coordinate.latitude,
                                        location.coordinate.longitude)
         }
     }
-
-//    // MARK - Spinner
-//    // todo move to seperate class / extension
-//    var activityView: UIActivityIndicatorView?
-//    func showActivityIndicator() {
-//        activityView = UIActivityIndicatorView(style: .large)
-//        activityView?.center = self.view.center
-//        self.view.addSubview(activityView!)
-//        activityView?.startAnimating()
-//    }
-//
-//    func hideActivityIndicator() {
-//        if (activityView != nil) {
-//            activityView?.stopAnimating()
-//        }
-//    }
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
@@ -211,5 +195,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: Constants.collectionHeight * 0.5, height: Constants.collectionHeight)
+    }
+}
+
+extension HomeViewController: Allerts {
+    func onError(_ error: AFError) {
+        showError(error, nil)
     }
 }

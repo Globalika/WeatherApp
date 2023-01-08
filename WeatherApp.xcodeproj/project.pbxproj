@@ -11,6 +11,7 @@
 		892569FA2968667E003826D4 /* CityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892569F92968667E003826D4 /* CityCell.swift */; };
 		892569FD29689C9E003826D4 /* NavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892569FC29689C9E003826D4 /* NavigationController+Extension.swift */; };
 		892569FF2968E7F9003826D4 /* TableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892569FE2968E7F9003826D4 /* TableView+Extension.swift */; };
+		89256A01296A3F7F003826D4 /* Alerts+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89256A00296A3F7F003826D4 /* Alerts+Error.swift */; };
 		894CFF7B296458DC0023FAD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894CFF7A296458DC0023FAD3 /* AppDelegate.swift */; };
 		894CFF7F296458DC0023FAD3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894CFF7E296458DC0023FAD3 /* HomeViewController.swift */; };
 		894CFF84296458DD0023FAD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 894CFF83296458DD0023FAD3 /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 		892569F92968667E003826D4 /* CityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCell.swift; sourceTree = "<group>"; };
 		892569FC29689C9E003826D4 /* NavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationController+Extension.swift"; sourceTree = "<group>"; };
 		892569FE2968E7F9003826D4 /* TableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView+Extension.swift"; sourceTree = "<group>"; };
+		89256A00296A3F7F003826D4 /* Alerts+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alerts+Error.swift"; sourceTree = "<group>"; };
 		894CFF77296458DC0023FAD3 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		894CFF7A296458DC0023FAD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		894CFF7E296458DC0023FAD3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				89AADDE72966E914006664FC /* UIImage+Extension.swift */,
 				892569FC29689C9E003826D4 /* NavigationController+Extension.swift */,
 				892569FE2968E7F9003826D4 /* TableView+Extension.swift */,
+				89256A00296A3F7F003826D4 /* Alerts+Error.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				89AADDA12964AD83006664FC /* SearchCoordinator.swift in Sources */,
 				89AADDAD2964ED13006664FC /* Main.swift in Sources */,
 				89AADDB729658069006664FC /* HourForecastCell.swift in Sources */,
+				89256A01296A3F7F003826D4 /* Alerts+Error.swift in Sources */,
 				89AADDD429658E6D006664FC /* UIColor+Extension.swift in Sources */,
 				89AADD942964A7A5006664FC /* AppCoordinator.swift in Sources */,
 				89AADDCA29658838006664FC /* EndPoint.swift in Sources */,
