@@ -75,6 +75,10 @@ class HomeViewController: UIViewController, HomeViewModelDelegate {
         dayTableView.reloadDataSavingSelections()
     }
 
+    func onError(_ error: AFError) {
+        showError(error, nil)
+    }
+
     @objc func mapTapped(_ sender: UIButton) {
         coordinator?.coordinateToMap()
     }
@@ -195,11 +199,5 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: Constants.collectionHeight * 0.5, height: Constants.collectionHeight)
-    }
-}
-
-extension HomeViewController: Allerts {
-    func onError(_ error: AFError) {
-        showError(error, nil)
     }
 }

@@ -7,12 +7,16 @@
 
 import Foundation
 import Alamofire
-
+// todo aferror -> error
 typealias ExecuteAction = (UIAlertAction) -> Void
 
 protocol Allerts {
     func showError(_ error: AFError, _ title: String?, _ actions: [(String, ExecuteAction?)]? )
 }
+
+extension HomeViewController: Allerts {}
+extension SearchViewController: Allerts {}
+extension MapViewController: Allerts {}
 
 extension Allerts where Self: UIViewController {
     func showError(_ error: AFError, _ title: String?, _ actions: [(String, ExecuteAction?)]? = [("Ok", nil)]) {

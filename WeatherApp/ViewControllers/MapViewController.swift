@@ -46,7 +46,6 @@ class MapViewController: UIViewController, HomeViewModelDelegate {
         navigationItem.title = homeViewModel?.cityName
         view.backgroundColor = .weatherBlueColor
         homeViewModel?.delegates.append({ [weak self] in return self})
-        //homeViewModel?.delegate = self
         configure()
         onDataChanged()
     }
@@ -55,6 +54,8 @@ class MapViewController: UIViewController, HomeViewModelDelegate {
         setupNavigation()
         setupMap()
     }
+
+    func onError(_ error: AFError) {}
 
     func onDataChanged() {
         navigationItem.title = homeViewModel?.cityName
@@ -118,8 +119,4 @@ class MapViewController: UIViewController, HomeViewModelDelegate {
             mapView.setRegion(region, animated: true)
         }
     }
-}
-
-extension MapViewController: Allerts {
-    func onError(_ error: AFError) { }
 }

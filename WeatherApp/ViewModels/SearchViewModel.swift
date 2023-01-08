@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import Alamofire
 
 protocol SearchViewModelDelegate: AnyObject {
     func onCitiesChanged()
+    func onError(_ error: AFError)
 }
 
 class SearchViewModel {
@@ -30,7 +32,7 @@ class SearchViewModel {
                         .compactMap { City(from: $0) }
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                self?.delegate?.onError(error)
             }
         }
     }

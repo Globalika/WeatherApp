@@ -10,7 +10,7 @@ import Foundation
 class ConfigurationManager {
 
     static let shared = ConfigurationManager()
-    var properties: NSDictionary?
+    private var properties: NSDictionary?
     private init() {}
     func setProperties(source: NSDictionary) {
         self.properties = source

@@ -9,18 +9,18 @@ import UIKit
 
 extension UIColor {
     static var weatherBlackColor: UIColor {
-        UIColor(named: "colorBlack")!
+        UIColor(named: "colorBlack") ?? .clear
     }
     static var weatherWhiteColor: UIColor {
-        UIColor(named: "colorWhite")!
+        UIColor(named: "colorWhite") ?? .clear
     }
     static var weatherBlueLightColor: UIColor {
-        UIColor(named: "colorBlueLight")!
+        UIColor(named: "colorBlueLight") ?? .clear
     }
     static var weatherBlueBorderColor: UIColor {
-        UIColor(named: "colorBlueBorder")!
+        UIColor(named: "colorBlueBorder") ?? .clear
     }
     static var weatherBlueColor: UIColor {
-        UIColor(named: "colorBlue")!
+        UIColor(named: "colorBlue") ?? .clear
     }
 }

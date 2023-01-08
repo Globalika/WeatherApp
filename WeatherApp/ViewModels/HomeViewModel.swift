@@ -6,7 +6,6 @@
 //
 
 import Alamofire
-import CoreLocation
 
 protocol HomeViewModelDelegate: AnyObject {
     func onDataChanged()

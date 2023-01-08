@@ -9,7 +9,7 @@ import UIKit
 
 class HourForecastCell: UICollectionViewCell {
     private enum Constants {
-        static let stackMargins =  UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        static let stackMargins =  UIEdgeInsets(top: 5, left: 7, bottom: 5, right: 7)
         static let stackSpacing: CGFloat = 2
     }
 

@@ -40,6 +40,7 @@ class DayForecastCell: UITableViewCell {
 
     func configure(_ main: Main) {
         self.backgroundColor = .weatherWhiteColor
+        self.selectionStyle = .none
         layer.shadowColor = UIColor.weatherBlueBorderColor.cgColor
         layer.shadowOffset = .zero
         layer.shadowRadius = 5

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class SearchViewController: UIViewController, SearchViewModelDelegate, UITextViewDelegate {
     // MARK: - Constants
@@ -47,6 +48,11 @@ class SearchViewController: UIViewController, SearchViewModelDelegate, UITextVie
         setupNavigation()
         setupDayTableView()
     }
+
+    func onError(_ error: AFError) {
+        showError(error, nil)
+    }
+
     func onCitiesChanged() {
         self.citiesTableView.reloadData()
     }
